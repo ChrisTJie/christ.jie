@@ -1,68 +1,164 @@
 import Image from "next/image";
-
-const withBasePath = (path: string) =>
-  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+import Link from "next/link";
+import { Button } from "@/components/ui/Button";
+import { MaterialIcon } from "@/components/ui/MaterialIcon";
+import { profile } from "@/content/profile";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src={withBasePath("/next.svg")}
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="flex-grow pt-[100px] flex flex-col gap-[120px] px-4 md:px-16 max-w-[1280px] mx-auto w-full">
+      {/* Hero */}
+      <section className="min-h-[70vh] flex flex-col justify-center relative">
+        <div className="absolute inset-0 z-0 opacity-20 blur-3xl rounded-full bg-primary-container w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mix-blend-screen pointer-events-none" />
+        <div className="z-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center w-full">
+          <div className="flex flex-col gap-10 max-w-3xl">
+            <div className="font-mono text-[13px] font-medium tracking-wider text-tertiary flex items-center gap-2">
+              <span className="w-8 h-px bg-tertiary" />
+              SYSTEM_INITIALIZED
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-on-surface leading-tight tracking-tight">
+              {profile.headline}
+              <br />
+              <span className="text-primary-container">{profile.headlineAccent}</span>
+            </h1>
+            <p className="text-base text-on-surface-variant max-w-2xl leading-relaxed">
+              {profile.tagline}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button href="/projects/" variant="primary" icon="arrow_forward">
+                INITIATE_SEQUENCE
+              </Button>
+              <Button href="/experience/" variant="secondary" icon="terminal">
+                VIEW_LOGS
+              </Button>
+            </div>
+          </div>
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-primary-container/20 blur-xl rounded opacity-50 group-hover:opacity-100 transition-opacity" />
+            <div className="relative border border-primary/30 overflow-hidden rounded aspect-[3/4] max-w-sm mx-auto md:mx-0 md:ml-auto">
+              <Image
+                src={profile.avatar}
+                alt={profile.name}
+                width={400}
+                height={533}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-4 text-tertiary/40 font-mono text-[10px]">
+          <div>&gt; SYS_LOAD: 98.4%</div>
+          <div>&gt; MEM_ALLOC: 4096TB</div>
+          <div>&gt; NET_LATENCY: 12ms</div>
+          <div className="h-32 w-px bg-gradient-to-b from-tertiary/40 to-transparent ml-2 mt-4" />
+        </div>
+      </section>
+
+      {/* About */}
+      <section className="flex flex-col gap-10">
+        <div className="flex items-center gap-4 mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-on-surface">ABOUT_ME</h2>
+          <div className="flex-grow h-px bg-tertiary/20" />
+          <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary">
+            [01]
+          </span>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
+          <div className="md:col-span-8 bg-surface-container-highest p-8 border border-tertiary/20 neon-border rounded relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 text-tertiary/30 group-hover:text-tertiary/60 transition-colors">
+              <MaterialIcon name="fingerprint" className="text-4xl" />
+            </div>
+            <h3 className="text-2xl font-semibold text-primary mb-4">
+              &gt; IDENTITY_DATA
+            </h3>
+            {profile.bio.map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 20)}
+                className="text-on-surface-variant mb-4 leading-relaxed last:mb-0"
+              >
+                {paragraph}
+              </p>
+            ))}
+            <div className="mt-8 flex gap-4 flex-wrap">
+              <div className="flex flex-col">
+                <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary mb-1">
+                  LOCATION
+                </span>
+                <span className="text-on-surface">{profile.location}</span>
+              </div>
+              <div className="w-px bg-tertiary/20" />
+              <div className="flex flex-col">
+                <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary mb-1">
+                  STATUS
+                </span>
+                <span className="text-primary-container flex items-center gap-2">
+                  <span className="w-2 h-2 bg-primary-container rounded-full animate-pulse" />
+                  {profile.status}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="md:col-span-4 flex flex-col gap-5">
+            <div className="bg-surface-container-highest p-6 border border-tertiary/20 flex-grow rounded flex flex-col justify-center items-center text-center hover:border-primary/50 transition-colors">
+              <span className="text-4xl md:text-5xl font-bold text-primary-container mb-2">
+                {profile.yearsActive}
+              </span>
+              <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary">
+                YEARS_ACTIVE
+              </span>
+            </div>
+            <div className="bg-surface-container-highest p-6 border border-tertiary/20 flex-grow rounded flex flex-col justify-center items-center text-center hover:border-primary/50 transition-colors">
+              <span className="text-4xl md:text-5xl font-bold text-primary-container mb-2">
+                {profile.systemsDeployed}+
+              </span>
+              <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary">
+                SYSTEMS_DEPLOYED
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick links */}
+      <section className="pb-16">
+        <div className="flex items-center gap-4 mb-8">
+          <h2 className="text-2xl font-semibold text-on-surface">QUICK_ACCESS</h2>
+          <div className="flex-grow h-px bg-tertiary/20" />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <Link
+            href="/experience/"
+            className="group glass-panel p-6 rounded hover:border-primary/50 transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src={withBasePath("/vercel.svg")}
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            <MaterialIcon
+              name="work"
+              className="text-primary-container mb-3 text-2xl"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-primary-container transition-colors">
+              Experience_Log
+            </h3>
+            <p className="text-on-surface-variant text-sm">
+              專業經歷、學歷與核心技能完整紀錄
+            </p>
+          </Link>
+          <Link
+            href="/projects/"
+            className="group glass-panel p-6 rounded hover:border-primary/50 transition-colors"
           >
-            Documentation
-          </a>
+            <MaterialIcon
+              name="grid_view"
+              className="text-primary-container mb-3 text-2xl"
+            />
+            <h3 className="text-xl font-semibold text-primary mb-2 group-hover:text-primary-container transition-colors">
+              Project_Archive
+            </h3>
+            <p className="text-on-surface-variant text-sm">
+              技術部署與互動系統作品集
+            </p>
+          </Link>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }
