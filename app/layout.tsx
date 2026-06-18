@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
+import { PageTransitionProvider } from "@/components/layout/PageTransitionProvider";
 import { profile } from "@/content/profile";
 import "./globals.css";
 
@@ -40,10 +41,12 @@ export default function RootLayout({
         />
       </head>
       <body className="tech-grid min-h-full flex flex-col bg-surface text-on-surface overflow-x-hidden selection:bg-primary-container selection:text-on-primary">
-        <div className="scanline" aria-hidden="true" />
-        <Nav />
-        {children}
-        <Footer />
+        <PageTransitionProvider>
+          <div className="scanline" aria-hidden="true" />
+          <Nav />
+          {children}
+          <Footer />
+        </PageTransitionProvider>
       </body>
     </html>
   );

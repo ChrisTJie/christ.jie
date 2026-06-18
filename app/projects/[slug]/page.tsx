@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { notFound } from "next/navigation";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { Chip } from "@/components/ui/Chip";

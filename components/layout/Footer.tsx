@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { profile } from "@/content/profile";
 
 export function Footer() {

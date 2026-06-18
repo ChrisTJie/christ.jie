@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { Button } from "@/components/ui/Button";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { profile } from "@/content/profile";

@@ -205,3 +205,179 @@ body {
   display: inline-block;
   vertical-align: middle;
 }
+
+/* Nav sliding underline */
+.nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--color-primary, #e9feff);
+  box-shadow: 0 0 8px rgba(0, 245, 255, 0.6);
+  pointer-events: none;
+  transition:
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s ease;
+  will-change: transform, width;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-indicator {
+    transition: none;
+  }
+}
+
+/* Page transition — two-phase leave → enter */
+.page-content {
+  will-change: opacity, transform, filter;
+}
+
+.page-content.page-phase-leaving {
+  animation: page-leave 0.42s cubic-bezier(0.4, 0, 0.9, 0.6) forwards;
+  pointer-events: none;
+}
+
+.page-content.page-phase-entering {
+  animation: page-enter 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes page-leave {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.96);
+    filter: blur(8px);
+  }
+}
+
+@keyframes page-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(36px) scale(0.95);
+    filter: blur(10px);
+  }
+
+  60% {
+    opacity: 0.85;
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Cyan sweep curtain during navigation */
+.transition-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.transition-curtain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 20, 36, 0.55);
+  animation: curtain-fade 0.9s ease-out both;
+}
+
+.transition-curtain::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+      transparent,
+      #00f5ff,
+      #8dd1dc,
+      #00f5ff,
+      transparent);
+  box-shadow:
+    0 0 24px #00f5ff,
+    0 0 60px rgba(0, 245, 255, 0.4);
+  animation: curtain-sweep 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.transition-curtain[data-phase="leaving"]::after {
+  top: 0;
+  animation-name: curtain-sweep-down;
+}
+
+.transition-curtain[data-phase="entering"]::after {
+  bottom: 0;
+  animation-name: curtain-sweep-up;
+}
+
+@keyframes curtain-fade {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes curtain-sweep-down {
+  0% {
+    top: -2px;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0.6;
+  }
+}
+
+@keyframes curtain-sweep-up {
+  0% {
+    bottom: -2px;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    bottom: 100%;
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .page-content.page-phase-leaving,
+  .page-content.page-phase-entering {
+    animation: none !important;
+  }
+
+  .transition-curtain {
+    display: none;
+  }
+}

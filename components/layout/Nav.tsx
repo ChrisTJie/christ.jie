@@ -1,18 +1,28 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { profile } from "@/content/profile";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { withBasePath } from "@/lib/base-path";
 
-const navItems = [
-  { href: "/", label: "STX_01_HOME" },
-  { href: "/experience/", label: "STX_02_WORK" },
-  { href: "/projects/", label: "STX_03_PROJECTS" },
-  { href: "mailto:hello@christ.jie", label: "STX_04_CONTACT", external: true },
-];
+const navItems: {
+  href: string;
+  label: string;
+  external?: boolean;
+}[] = [
+    { href: "/", label: "STX_01_HOME" },
+    { href: "/experience/", label: "STX_02_WORK" },
+    { href: "/projects/", label: "STX_03_PROJECTS" },
+    { href: "mailto:hello@christ.jie", label: "STX_04_CONTACT", external: true },
+  ];
+
+type IndicatorState = {
+  left: number;
+  width: number;
+  visible: boolean;
+};
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/" || pathname === "";
@@ -22,6 +32,61 @@ function isActive(pathname: string, href: string) {
 export function Nav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+  const linkRefs = useRef<Map<string, HTMLElement>>(new Map());
+  const [indicator, setIndicator] = useState<IndicatorState>({
+    left: 0,
+    width: 0,
+    visible: false,
+  });
+
+  const updateIndicator = useCallback(() => {
+    const container = navRef.current;
+    if (!container) return;
+
+    const activeItem = navItems.find(
+      (item) => !item.external && isActive(pathname, item.href),
+    );
+
+    if (!activeItem) {
+      setIndicator((prev) => ({ ...prev, visible: false }));
+      return;
+    }
+
+    const activeEl = linkRefs.current.get(activeItem.href);
+    if (!activeEl) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const activeRect = activeEl.getBoundingClientRect();
+
+    setIndicator({
+      left: activeRect.left - containerRect.left,
+      width: activeRect.width,
+      visible: true,
+    });
+  }, [pathname]);
+
+  useLayoutEffect(() => {
+    updateIndicator();
+  }, [updateIndicator]);
+
+  useLayoutEffect(() => {
+    const frame = requestAnimationFrame(updateIndicator);
+    return () => cancelAnimationFrame(frame);
+  }, [pathname, updateIndicator]);
+
+  useLayoutEffect(() => {
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
+  }, [updateIndicator]);
+
+  const setLinkRef = (href: string) => (el: HTMLElement | null) => {
+    if (el) {
+      linkRefs.current.set(href, el);
+    } else {
+      linkRefs.current.delete(href);
+    }
+  };
 
   return (
     <nav className="bg-surface/80 backdrop-blur-xl text-primary fixed top-0 w-full z-50 border-b border-tertiary/20">
@@ -33,12 +98,15 @@ export function Nav() {
           {profile.brand}
         </Link>
 
-        <div className="hidden md:flex gap-4 font-mono text-[13px] font-medium tracking-wider">
+        <div
+          ref={navRef}
+          className="hidden md:flex relative gap-4 font-mono text-[13px] font-medium tracking-wider"
+        >
           {navItems.map((item) => {
             const active = !item.external && isActive(pathname, item.href);
             const className = active
-              ? "text-primary font-bold border-b-2 border-primary pb-1"
-              : "text-on-surface-variant hover:text-primary transition-colors";
+              ? "text-primary font-bold pb-1"
+              : "text-on-surface-variant hover:text-primary transition-colors pb-1";
 
             if (item.external) {
               return (
@@ -49,11 +117,26 @@ export function Nav() {
             }
 
             return (
-              <Link key={item.label} href={item.href} className={className}>
+              <Link
+                key={item.label}
+                href={item.href}
+                ref={setLinkRef(item.href)}
+                className={className}
+              >
                 {item.label}
               </Link>
             );
           })}
+
+          <span
+            aria-hidden="true"
+            className="nav-indicator"
+            style={{
+              transform: `translateX(${indicator.left}px)`,
+              width: indicator.width,
+              opacity: indicator.visible ? 1 : 0,
+            }}
+          />
         </div>
 
         <a
@@ -80,8 +163,8 @@ export function Nav() {
           {navItems.map((item) => {
             const active = !item.external && isActive(pathname, item.href);
             const className = active
-              ? "text-primary font-bold"
-              : "text-on-surface-variant hover:text-primary";
+              ? "text-primary font-bold border-l-2 border-primary pl-2"
+              : "text-on-surface-variant hover:text-primary pl-2";
 
             if (item.external) {
               return (

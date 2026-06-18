@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import type { ProjectItem } from "@/lib/types";
 import { projectCategories } from "@/content/projects";
