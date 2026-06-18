@@ -18,12 +18,6 @@ const navItems: {
     { href: "mailto:hello@christ.jie", label: "STX_04_CONTACT", external: true },
   ];
 
-type IndicatorState = {
-  left: number;
-  width: number;
-  visible: boolean;
-};
-
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/" || pathname === "";
   return pathname.startsWith(href.replace(/\/$/, ""));
@@ -33,23 +27,20 @@ export function Nav() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
   const linkRefs = useRef<Map<string, HTMLElement>>(new Map());
-  const [indicator, setIndicator] = useState<IndicatorState>({
-    left: 0,
-    width: 0,
-    visible: false,
-  });
 
   const updateIndicator = useCallback(() => {
     const container = navRef.current;
-    if (!container) return;
+    const indicator = indicatorRef.current;
+    if (!container || !indicator) return;
 
     const activeItem = navItems.find(
       (item) => !item.external && isActive(pathname, item.href),
     );
 
     if (!activeItem) {
-      setIndicator((prev) => ({ ...prev, visible: false }));
+      indicator.style.opacity = "0";
       return;
     }
 
@@ -59,16 +50,10 @@ export function Nav() {
     const containerRect = container.getBoundingClientRect();
     const activeRect = activeEl.getBoundingClientRect();
 
-    setIndicator({
-      left: activeRect.left - containerRect.left,
-      width: activeRect.width,
-      visible: true,
-    });
+    indicator.style.transform = `translateX(${activeRect.left - containerRect.left}px)`;
+    indicator.style.width = `${activeRect.width}px`;
+    indicator.style.opacity = "1";
   }, [pathname]);
-
-  useLayoutEffect(() => {
-    updateIndicator();
-  }, [updateIndicator]);
 
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(updateIndicator);
@@ -128,15 +113,7 @@ export function Nav() {
             );
           })}
 
-          <span
-            aria-hidden="true"
-            className="nav-indicator"
-            style={{
-              transform: `translateX(${indicator.left}px)`,
-              width: indicator.width,
-              opacity: indicator.visible ? 1 : 0,
-            }}
-          />
+          <span ref={indicatorRef} aria-hidden="true" className="nav-indicator" />
         </div>
 
         <a
@@ -147,15 +124,27 @@ export function Nav() {
           DOWNLOAD_CV
         </a>
 
-        <button
-          type="button"
-          className="md:hidden text-primary p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="開啟選單"
-          aria-expanded={menuOpen}
-        >
-          <MaterialIcon name={menuOpen ? "close" : "menu"} filled />
-        </button>
+        {menuOpen ? (
+          <button
+            type="button"
+            className="md:hidden text-primary p-2"
+            onClick={() => setMenuOpen(false)}
+            aria-label="關閉選單"
+            aria-expanded="true"
+          >
+            <MaterialIcon name="close" filled />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="md:hidden text-primary p-2"
+            onClick={() => setMenuOpen(true)}
+            aria-label="開啟選單"
+            aria-expanded="false"
+          >
+            <MaterialIcon name="menu" filled />
+          </button>
+        )}
       </div>
 
       {menuOpen && (
