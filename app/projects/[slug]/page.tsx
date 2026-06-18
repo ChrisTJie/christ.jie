@@ -85,32 +85,61 @@ export default async function ProjectDetailPage({ params }: Props) {
             ))}
           </div>
           <div className="lg:col-span-4 flex flex-col gap-6">
-            <div className="bg-surface-container-high border border-tertiary/20 p-6 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-container/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <h3 className="font-mono text-[12px] font-medium tracking-widest text-on-surface mb-4 opacity-60">
-                TIMELINE & ROLE
-              </h3>
-              <div className="text-base text-pure-white mb-2">
-                <span className="text-primary-container mr-2">&gt;</span>
-                {project.role}
+            {(project.role || project.timeline) && (
+              <div className="bg-surface-container-high border border-tertiary/20 p-6 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-container/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <h3 className="font-mono text-[12px] font-medium tracking-widest text-on-surface mb-4 opacity-60">
+                  TIMELINE & ROLE
+                </h3>
+                {project.role && (
+                  <div className="text-base text-pure-white mb-2">
+                    <span className="text-primary-container mr-2">&gt;</span>
+                    {project.role}
+                  </div>
+                )}
+                {project.timeline && (
+                  <div className="text-base text-pure-white">
+                    <span className="text-primary-container mr-2">&gt;</span>
+                    {project.timeline}
+                  </div>
+                )}
               </div>
-              <div className="text-base text-pure-white">
-                <span className="text-primary-container mr-2">&gt;</span>
-                {project.timeline}
-              </div>
-            </div>
+            )}
             <div className="bg-surface-container-low border border-tertiary/10 p-6 flex-grow">
               <h3 className="font-mono text-[12px] font-medium tracking-widest text-tertiary mb-6">
                 STACK_DEPLOYED
               </h3>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {project.tags.map((tag, i) => (
                   <Chip key={tag} active={i === 0}>
                     {tag}
                   </Chip>
                 ))}
               </div>
+              <p className="font-mono text-[12px] text-on-surface-variant">
+                DEPL: {project.deployed}
+              </p>
             </div>
+            {project.links && project.links.length > 0 && (
+              <div className="bg-surface-container-low border border-tertiary/10 p-6">
+                <h3 className="font-mono text-[12px] font-medium tracking-widest text-tertiary mb-4">
+                  EXTERNAL_LINKS
+                </h3>
+                <div className="flex flex-col gap-2">
+                  {project.links.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                      className="font-mono text-[13px] text-primary-container hover:text-primary transition-colors"
+                    >
+                      &gt; {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -124,10 +153,10 @@ export default async function ProjectDetailPage({ params }: Props) {
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {project.gallery.map((item, index) => (
+            {project.gallery.map((item) => (
               <div
                 key={item.label}
-                className={`group relative bg-surface-container-high aspect-square overflow-hidden border border-transparent hover:border-primary-container/50 transition-colors ${index === 2 ? "md:col-span-2 lg:col-span-1" : ""
+                className={`group relative bg-surface-container-high aspect-square overflow-hidden border border-transparent hover:border-primary-container/50 transition-colors ${item.wide ? "md:col-span-2 lg:col-span-1" : ""
                   }`}
               >
                 <Image

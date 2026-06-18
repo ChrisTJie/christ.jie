@@ -7,9 +7,14 @@ export type ExperienceItem = {
   highlights?: string[];
   tags?: string[];
   active?: boolean;
+  /** 時間軸節點強調樣式（資料驅動，不依賴陣列索引） */
+  emphasis?: boolean;
+  /** 時間軸卡片淡化樣式 */
+  muted?: boolean;
 };
 
 export type EducationItem = {
+  id: string;
   degree: string;
   school: string;
   detail: string;
@@ -17,15 +22,25 @@ export type EducationItem = {
 };
 
 export type CertificationItem = {
+  id: string;
   name: string;
   detail: string;
   icon: string;
 };
 
 export type SkillItem = {
+  id: string;
   name: string;
   level: number;
   highlight?: boolean;
+};
+
+export type ProjectGalleryItem = {
+  src: string;
+  alt: string;
+  label: string;
+  /** 畫廊格線跨欄（資料驅動，不依賴陣列索引） */
+  wide?: boolean;
 };
 
 export type ProjectItem = {
@@ -41,8 +56,23 @@ export type ProjectItem = {
   role?: string;
   timeline?: string;
   summary: string[];
-  gallery: { src: string; alt: string; label: string }[];
+  gallery: ProjectGalleryItem[];
   thumbnail: string;
+  links?: { label: string; href: string; external?: boolean }[];
+};
+
+export type ProfileStat = {
+  id: string;
+  label: string;
+  value: number | string;
+  suffix?: string;
+};
+
+export type ProfileLink = {
+  id: string;
+  label: string;
+  href: string;
+  external?: boolean;
 };
 
 export type Profile = {
@@ -54,7 +84,8 @@ export type Profile = {
   bio: string[];
   location: string;
   status: string;
-  yearsActive: number;
-  systemsDeployed: number;
   avatar: string;
+  stats: ProfileStat[];
+  links: ProfileLink[];
+  contactEmail: string;
 };

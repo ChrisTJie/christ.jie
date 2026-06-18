@@ -13,8 +13,30 @@ export const profile: Profile = {
   ],
   location: "台北 / Remote",
   status: "接受專案合作",
-  yearsActive: 12,
-  systemsDeployed: 84,
   avatar:
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&crop=face",
+  stats: [
+    { id: "years-active", label: "YEARS_ACTIVE", value: 12 },
+    { id: "systems-deployed", label: "SYSTEMS_DEPLOYED", value: 84, suffix: "+" },
+  ],
+  contactEmail: "hello@christ.jie",
+  links: [
+    {
+      id: "github",
+      label: "TERMINAL",
+      href: "https://github.com/christjie",
+      external: true,
+    },
+    {
+      id: "source",
+      label: "SOURCE",
+      href: "https://github.com/christjie/christ.jie",
+      external: true,
+    },
+    {
+      id: "contact",
+      label: "LOGS",
+      href: "mailto:hello@christ.jie",
+    },
+  ],
 };

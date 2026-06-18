@@ -35,12 +35,12 @@ export default function ExperiencePage() {
           </h2>
           <div className="relative pl-8 md:pl-12">
             <div className="absolute left-0 top-2 bottom-0 timeline-line" />
-            {experiences.map((exp, index) => (
+            {experiences.map((exp) => (
               <div key={exp.id} className="mb-10 relative group">
                 <div
                   className={`absolute -left-[37px] md:-left-[53px] top-1.5 w-3 h-3 rounded-full transition-transform group-hover:scale-150 ${exp.active
                     ? "bg-primary-container timeline-node"
-                    : index === 1
+                    : exp.emphasis
                       ? "bg-tertiary shadow-[0_0_10px_rgba(141,209,220,0.8)]"
                       : "bg-surface-variant border border-tertiary"
                     }`}
@@ -49,7 +49,7 @@ export default function ExperiencePage() {
                   className={`p-6 md:p-10 rounded-lg transition-all duration-300 hover:border-primary/50 relative overflow-hidden ${exp.active
                     ? "glass-panel"
                     : "bg-surface-variant border border-transparent hover:border-tertiary/30"
-                    } ${!exp.active && index === 2 ? "opacity-80 hover:opacity-100" : ""}`}
+                    } ${exp.muted ? "opacity-80 hover:opacity-100" : ""}`}
                 >
                   {exp.active && (
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -104,20 +104,25 @@ export default function ExperiencePage() {
               <MaterialIcon name="school" className="text-[18px]" />
               ACADEMIC_DATA
             </h2>
-            {education.map((edu) => (
-              <div
-                key={edu.degree}
-                className="glass-panel p-6 rounded-lg border-l-2 border-l-primary-container"
-              >
-                <h3 className="font-bold text-primary mb-1">{edu.degree}</h3>
-                <p className="font-mono text-[13px] font-medium tracking-wider text-tertiary mb-3">
-                  {edu.school}
-                </p>
-                <p className="font-mono text-[13px] font-medium tracking-wider text-on-surface-variant">
-                  {edu.graduated}
-                </p>
-              </div>
-            ))}
+            <div className="flex flex-col gap-4">
+              {education.map((edu) => (
+                <div
+                  key={edu.id}
+                  className="glass-panel p-6 rounded-lg border-l-2 border-l-primary-container"
+                >
+                  <h3 className="font-bold text-primary mb-1">{edu.degree}</h3>
+                  <p className="font-mono text-[13px] font-medium tracking-wider text-tertiary mb-3">
+                    {edu.school}
+                  </p>
+                  <p className="text-on-surface-variant text-sm mb-3 leading-relaxed">
+                    {edu.detail}
+                  </p>
+                  <p className="font-mono text-[13px] font-medium tracking-wider text-on-surface-variant">
+                    {edu.graduated}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div>
@@ -128,7 +133,7 @@ export default function ExperiencePage() {
             <div className="flex flex-col gap-4">
               {certifications.map((cert) => (
                 <div
-                  key={cert.name}
+                  key={cert.id}
                   className="bg-surface-variant p-4 rounded-lg flex items-center gap-4 hover:bg-surface-bright transition-colors border border-tertiary/10"
                 >
                   <div className="w-10 h-10 rounded bg-surface flex items-center justify-center border border-tertiary/20">
@@ -157,7 +162,7 @@ export default function ExperiencePage() {
             </h2>
             <div className="space-y-4">
               {skills.map((skill) => (
-                <div key={skill.name}>
+                <div key={skill.id}>
                   <div className="flex justify-between font-mono text-[13px] font-medium tracking-wider mb-1">
                     <span className="text-on-surface">{skill.name}</span>
                     <span

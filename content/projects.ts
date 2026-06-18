@@ -33,7 +33,12 @@ export const projects: ProjectItem[] = [
         src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=600&fit=crop",
         alt: "伺服器機房",
         label: "03 // HARDWARE_SYNC",
+        wide: true,
       },
+    ],
+    links: [
+      { label: "LIVE_DEMO", href: "https://example.com/onyx", external: true },
+      { label: "REPO", href: "https://github.com/christjie", external: true },
     ],
   },
   {
@@ -68,6 +73,7 @@ export const projects: ProjectItem[] = [
         src: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&h=600&fit=crop",
         alt: "程式碼編輯器",
         label: "03 // SHADER_DEV",
+        wide: true,
       },
     ],
   },
@@ -103,6 +109,7 @@ export const projects: ProjectItem[] = [
         src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=600&fit=crop",
         alt: "實驗室環境",
         label: "03 // LAB_ENV",
+        wide: true,
       },
     ],
   },
@@ -140,6 +147,7 @@ export const projects: ProjectItem[] = [
         src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=600&fit=crop",
         alt: "硬體同步",
         label: "03 // HARDWARE_SYNC",
+        wide: true,
       },
     ],
   },
@@ -154,8 +162,6 @@ export const projects: ProjectItem[] = [
     deployed: "2024.01",
     thumbnail:
       "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=600&fit=crop",
-    role: "Creator",
-    timeline: "Q4 2023 - Q1 2024",
     summary: [
       "Term Env V4 是一套模組化終端機設定，整合 Neovim、Tmux 與自訂 Zsh 主題。",
       "啟動時間低於 50ms，支援一鍵切換多專案工作區與 Git 整合快捷鍵。",
@@ -175,6 +181,38 @@ export const projects: ProjectItem[] = [
         src: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&h=600&fit=crop",
         alt: "設定檔",
         label: "03 // CONFIG",
+        wide: true,
+      },
+    ],
+  },
+  {
+    slug: "synapse-ui-kit",
+    title: "Synapse_UI_Kit",
+    subtitle: "設計系統與元件庫",
+    description:
+      "可擴展的 React 設計系統，涵蓋無障礙元件、主題令牌與文件站點。",
+    category: "UI_ENGINEERING",
+    tags: ["REACT", "STORYBOOK", "A11Y"],
+    deployed: "2024.05",
+    featured: true,
+    thumbnail:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
+    role: "Design Systems Lead",
+    timeline: "Q2 2024 - 進行中",
+    summary: [
+      "Synapse UI Kit 為內部產品線提供統一的視覺語言與互動模式。",
+      "元件庫支援深色主題、鍵盤導覽與 WCAG 2.1 AA 對比標準。",
+    ],
+    gallery: [
+      {
+        src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=600&fit=crop",
+        alt: "元件預覽",
+        label: "01 // COMPONENTS",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=600&fit=crop",
+        alt: "文件站點",
+        label: "02 // DOCS",
       },
     ],
   },

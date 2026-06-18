@@ -15,7 +15,7 @@ const navItems: {
     { href: "/", label: "STX_01_HOME" },
     { href: "/experience/", label: "STX_02_WORK" },
     { href: "/projects/", label: "STX_03_PROJECTS" },
-    { href: "mailto:hello@christ.jie", label: "STX_04_CONTACT", external: true },
+    { href: `mailto:${profile.contactEmail}`, label: "STX_04_CONTACT", external: true },
   ];
 
 function isActive(pathname: string, href: string) {

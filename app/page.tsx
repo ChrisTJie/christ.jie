@@ -100,22 +100,20 @@ export default function Home() {
             </div>
           </div>
           <div className="md:col-span-4 flex flex-col gap-5">
-            <div className="bg-surface-container-highest p-6 border border-tertiary/20 flex-grow rounded flex flex-col justify-center items-center text-center hover:border-primary/50 transition-colors">
-              <span className="text-4xl md:text-5xl font-bold text-primary-container mb-2">
-                {profile.yearsActive}
-              </span>
-              <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary">
-                YEARS_ACTIVE
-              </span>
-            </div>
-            <div className="bg-surface-container-highest p-6 border border-tertiary/20 flex-grow rounded flex flex-col justify-center items-center text-center hover:border-primary/50 transition-colors">
-              <span className="text-4xl md:text-5xl font-bold text-primary-container mb-2">
-                {profile.systemsDeployed}+
-              </span>
-              <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary">
-                SYSTEMS_DEPLOYED
-              </span>
-            </div>
+            {profile.stats.map((stat) => (
+              <div
+                key={stat.id}
+                className="bg-surface-container-highest p-6 border border-tertiary/20 flex-grow rounded flex flex-col justify-center items-center text-center hover:border-primary/50 transition-colors"
+              >
+                <span className="text-4xl md:text-5xl font-bold text-primary-container mb-2">
+                  {stat.value}
+                  {stat.suffix}
+                </span>
+                <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>

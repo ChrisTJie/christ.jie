@@ -12,28 +12,17 @@ export function Footer() {
           {profile.brand}
         </Link>
         <div className="flex gap-4 font-mono text-[13px] font-medium tracking-wider">
-          <a
-            href="https://github.com/christjie"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-on-surface-variant hover:text-primary-container opacity-80 hover:opacity-100 transition-opacity"
-          >
-            TERMINAL
-          </a>
-          <a
-            href="https://github.com/christjie/christ.jie"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-on-surface-variant hover:text-primary-container opacity-80 hover:opacity-100 transition-opacity"
-          >
-            SOURCE
-          </a>
-          <a
-            href="mailto:hello@christ.jie"
-            className="text-on-surface-variant hover:text-primary-container opacity-80 hover:opacity-100 transition-opacity"
-          >
-            LOGS
-          </a>
+          {profile.links.map((link) => (
+            <a
+              key={link.id}
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
+              className="text-on-surface-variant hover:text-primary-container opacity-80 hover:opacity-100 transition-opacity"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
         <div className="text-on-surface-variant font-mono text-xs opacity-60">
           © {new Date().getFullYear()} {profile.name.toUpperCase()}. ALL RIGHTS
