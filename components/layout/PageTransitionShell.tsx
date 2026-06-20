@@ -1,6 +1,7 @@
 "use client";
 
 import { usePageTransition } from "@/components/layout/PageTransitionProvider";
+import { XRLensBar } from "@/components/layout/XRLensBar";
 
 export function PageTransitionShell({
   children,
@@ -10,6 +11,9 @@ export function PageTransitionShell({
   const { phase } = usePageTransition();
 
   return (
-    <div className={`page-content flex-grow page-phase-${phase}`}>{children}</div>
+    <div className={`page-content flex-grow page-phase-${phase}`}>
+      {children}
+      <XRLensBar />
+    </div>
   );
 }

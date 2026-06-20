@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
-import { NeuralNetworkBackground } from "@/components/layout/NeuralNetworkBackground";
+import { SceneBackground } from "@/components/layout/SceneBackground";
+import { XRStatusStrip } from "@/components/layout/XRStatusStrip";
 import { PageTransitionProvider } from "@/components/layout/PageTransitionProvider";
 import { profile } from "@/content/profile";
 import "./globals.css";
@@ -36,10 +37,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
     >
       <body className="relative min-h-full flex flex-col bg-surface text-on-surface overflow-x-hidden selection:bg-primary-container selection:text-on-primary">
-        <NeuralNetworkBackground />
+        <SceneBackground />
         <PageTransitionProvider>
           <div className="relative z-10 flex min-h-full w-full flex-1 flex-col">
             <Nav />
+            <XRStatusStrip />
             {children}
             <Footer />
           </div>

@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 
 const CYAN = { r: 0, g: 245, b: 255 };
 const TEAL = { r: 141, g: 209, b: 220 };
-const BG = "#051424";
 const CONNECTION_DIST = 160;
 const CONNECTION_DIST_SQ = CONNECTION_DIST * CONNECTION_DIST;
 const MOUSE_RADIUS = 200;
@@ -70,7 +69,7 @@ export function NeuralNetworkBackground() {
     let lastSignalSpawn = 0;
 
     const neuronCount = () =>
-      Math.min(90, Math.max(35, Math.floor((width * height) / 18000)));
+      Math.min(65, Math.max(24, Math.floor((width * height) / 24000)));
 
     function createNeurons() {
       const count = neuronCount();
@@ -103,7 +102,7 @@ export function NeuralNetworkBackground() {
 
     function spawnSignal(now: number) {
       if (now - lastSignalSpawn < 180) return;
-      if (signals.length > 12) return;
+      if (signals.length > 6) return;
 
       const from = Math.floor(Math.random() * neurons.length);
       const fromNode = neurons[from];
@@ -151,8 +150,7 @@ export function NeuralNetworkBackground() {
     }
 
     function drawFrame(now: number) {
-      ctx.fillStyle = BG;
-      ctx.fillRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, height);
 
       const mouse = mouseRef.current;
 
@@ -198,7 +196,7 @@ export function NeuralNetworkBackground() {
 
           const dist = Math.sqrt(distSq);
           const proximity = 1 - dist / CONNECTION_DIST;
-          const alpha = proximity * proximity * 0.22;
+          const alpha = proximity * proximity * 0.11;
 
           const color = mixColor(TEAL, CYAN, proximity);
           ctx.beginPath();
@@ -230,8 +228,8 @@ export function NeuralNetworkBackground() {
         const sx = lerp(from.x, to.x, signal.t);
         const sy = lerp(from.y, to.y, signal.t);
         const glow = ctx.createRadialGradient(sx, sy, 0, sx, sy, 6);
-        glow.addColorStop(0, "rgba(0, 245, 255, 0.9)");
-        glow.addColorStop(0.4, "rgba(0, 245, 255, 0.25)");
+        glow.addColorStop(0, "rgba(0, 245, 255, 0.45)");
+        glow.addColorStop(0.4, "rgba(0, 245, 255, 0.12)");
         glow.addColorStop(1, "rgba(0, 245, 255, 0)");
         ctx.fillStyle = glow;
         ctx.beginPath();
@@ -243,7 +241,7 @@ export function NeuralNetworkBackground() {
         const pulse = reducedMotion
           ? 0.5
           : 0.5 + 0.5 * Math.sin(now * 0.002 + node.phase);
-        const baseAlpha = node.isHub ? 0.55 + pulse * 0.35 : 0.3 + pulse * 0.25;
+        const baseAlpha = node.isHub ? 0.28 + pulse * 0.18 : 0.15 + pulse * 0.12;
         const glowRadius = node.radius * (node.isHub ? 5 : 3.5);
 
         const glow = ctx.createRadialGradient(
@@ -262,7 +260,7 @@ export function NeuralNetworkBackground() {
         ctx.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = `rgba(233, 254, 255, ${0.5 + pulse * 0.4})`;
+        ctx.fillStyle = `rgba(233, 254, 255, ${0.25 + pulse * 0.2})`;
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
         ctx.fill();
@@ -304,7 +302,7 @@ export function NeuralNetworkBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0"
+      className="pointer-events-none absolute inset-0 opacity-50"
       aria-hidden="true"
     />
   );

@@ -35,22 +35,29 @@ export default function Home() {
           </div>
           <div className="relative group">
             <div className="absolute -inset-1 bg-primary-container/20 blur-xl rounded opacity-50 group-hover:opacity-100 transition-opacity" />
-            <div className="relative border border-primary/30 overflow-hidden rounded aspect-[3/4] max-w-sm mx-auto md:mx-0 md:ml-auto">
+            <div className="relative border border-primary/30 overflow-hidden rounded aspect-[3/4] max-w-sm mx-auto md:mx-0 md:ml-auto xr-hologram">
               <Image
                 src={profile.avatar}
                 alt={profile.name}
                 width={400}
                 height={533}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover xr-hologram-image"
                 priority
               />
+              <div className="xr-hologram-scan" aria-hidden="true" />
+              <div className="xr-hologram-corners" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
             </div>
           </div>
         </div>
         <div className="absolute right-0 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-4 text-tertiary/40 font-mono text-[10px]">
-          <div>&gt; SYS_LOAD: 98.4%</div>
-          <div>&gt; MEM_ALLOC: 4096TB</div>
-          <div>&gt; NET_LATENCY: 12ms</div>
+          <div>&gt; XR_RUNTIME: ACTIVE</div>
+          <div>&gt; SPATIAL_TRACK: 6DOF</div>
+          <div>&gt; ANCHOR_SYNC: 12ms</div>
           <div className="h-32 w-px bg-gradient-to-b from-tertiary/40 to-transparent ml-2 mt-4" />
         </div>
       </section>
