@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Link } from "@/lib/navigation";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
+import { ProjectCardPreview } from "@/components/projects/ProjectMedia";
 import type { ProjectItem } from "@/lib/types";
 import { projectCategories } from "@/content/projects";
 
@@ -73,11 +73,14 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
 }
 
 function ProjectCard({ project }: { project: ProjectItem }) {
+  const [hovered, setHovered] = useState(false);
   const isWide = project.wide;
 
   return (
     <Link
       href={`/projects/${project.slug}/`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className={`cyber-card group block bg-surface-container-high border border-tertiary/10 rounded overflow-hidden ${isWide ? "lg:col-span-2" : ""
         }`}
     >
@@ -85,12 +88,11 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         className={`relative overflow-hidden bg-surface-dim ${isWide ? "h-64 md:h-80" : "h-64 md:h-72"
           }`}
       >
-        <Image
-          src={project.thumbnail}
-          alt={project.title}
-          width={800}
-          height={600}
-          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+        <ProjectCardPreview
+          title={project.title}
+          thumbnail={project.thumbnail}
+          heroVideo={project.heroVideo}
+          hovered={hovered}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-surface-container-high to-transparent opacity-90" />
         <div className="absolute top-4 right-4 flex gap-2">

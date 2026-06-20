@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Link } from "@/lib/navigation";
 import { notFound } from "next/navigation";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { Chip } from "@/components/ui/Chip";
+import {
+  ProjectGalleryTile,
+  ProjectHeroMedia,
+} from "@/components/projects/ProjectMedia";
+import { isVideoGalleryItem } from "@/lib/types";
 import { getProjectBySlug, projects } from "@/content/projects";
 
 type Props = {
@@ -42,13 +46,10 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         <section className="mb-24">
           <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-surface-container-high border border-tertiary/20 overflow-hidden mb-8 group">
-            <Image
-              src={project.thumbnail}
-              alt={project.title}
-              width={1400}
-              height={600}
-              className="w-full h-full object-cover opacity-80 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700 group-hover:scale-105"
-              priority
+            <ProjectHeroMedia
+              title={project.title}
+              thumbnail={project.thumbnail}
+              heroVideo={project.heroVideo}
             />
             <div className="absolute top-4 left-4 font-mono text-[12px] font-medium tracking-widest text-tertiary opacity-70">
               SYS.OP. [ACTIVE] // {project.category}
@@ -153,27 +154,31 @@ export default async function ProjectDetailPage({ params }: Props) {
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {project.gallery.map((item) => (
-              <div
-                key={item.label}
-                className={`group relative bg-surface-container-high aspect-square overflow-hidden border border-transparent hover:border-primary-container/50 transition-colors ${item.wide ? "md:col-span-2 lg:col-span-1" : ""
-                  }`}
-              >
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  width={600}
-                  height={600}
-                  className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
-                <div className="absolute bottom-4 left-4">
-                  <p className="font-mono text-[12px] font-medium tracking-widest text-tertiary">
-                    {item.label}
-                  </p>
+            {project.gallery.map((item) => {
+              const isVideo = isVideoGalleryItem(item);
+              return (
+                <div
+                  key={item.label}
+                  className={`group relative bg-surface-container-high overflow-hidden border border-transparent hover:border-primary-container/50 transition-colors ${isVideo ? "aspect-video" : "aspect-square"
+                    } ${item.wide
+                      ? isVideo
+                        ? "md:col-span-2 lg:col-span-3"
+                        : "md:col-span-2 lg:col-span-1"
+                      : ""
+                    }`}
+                >
+                  <ProjectGalleryTile item={item} />
+                  {!isVideo && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80 pointer-events-none" />
+                  )}
+                  <div className="absolute bottom-4 left-4 pointer-events-none">
+                    <p className="font-mono text-[12px] font-medium tracking-widest text-tertiary">
+                      {item.label}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       </div>

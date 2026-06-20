@@ -169,11 +169,13 @@ body {
   border-color: #00f5ff;
 }
 
-.cyber-card img {
-  transition: transform 0.6s ease;
+.cyber-card img,
+.cyber-card video {
+  transition: transform 0.6s ease, opacity 0.5s ease;
 }
 
-.cyber-card:hover img {
+.cyber-card:hover img,
+.cyber-card:hover video {
   transform: scale(1.05);
 }
 
@@ -201,8 +203,7 @@ body {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://fonts.gstatic.com/s/materialsymbolsoutlined/v351/kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOem.ttf")
-    format("truetype");
+  src: url("https://fonts.gstatic.com/s/materialsymbolsoutlined/v351/kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOem.ttf") format("truetype");
 }
 
 .material-symbols-outlined {
@@ -460,14 +461,12 @@ body {
   left: 8%;
   right: 8%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(141, 209, 220, 0.15),
-    rgba(0, 245, 255, 0.25),
-    rgba(141, 209, 220, 0.15),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(141, 209, 220, 0.15),
+      rgba(0, 245, 255, 0.25),
+      rgba(141, 209, 220, 0.15),
+      transparent);
   opacity: 0.35;
 }
 
@@ -489,6 +488,7 @@ body {
 }
 
 @keyframes xr-depth-drift {
+
   0%,
   100% {
     transform: translateX(-1%) scaleX(0.98);
@@ -536,6 +536,7 @@ body {
 }
 
 @keyframes xr-anchor-float {
+
   0%,
   100% {
     transform: translateY(0);
@@ -663,6 +664,7 @@ body {
 }
 
 @keyframes xr-status-pulse {
+
   0%,
   100% {
     opacity: 0.5;
@@ -705,13 +707,11 @@ body {
 .xr-hologram-scan {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 245, 255, 0.04) 0px,
-    rgba(0, 245, 255, 0.04) 1px,
-    transparent 1px,
-    transparent 3px
-  );
+  background: repeating-linear-gradient(0deg,
+      rgba(0, 245, 255, 0.04) 0px,
+      rgba(0, 245, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 3px);
   pointer-events: none;
   animation: xr-hologram-flicker 4s steps(2) infinite;
 }
@@ -749,6 +749,7 @@ body {
 }
 
 @keyframes xr-hologram-flicker {
+
   0%,
   100% {
     opacity: 0.35;
@@ -760,6 +761,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .xr-depth-plane,
   .xr-spatial-anchor,
   .xr-anchor-pulse,

@@ -35,12 +35,37 @@ export type SkillItem = {
   highlight?: boolean;
 };
 
-export type ProjectGalleryItem = {
+export type ProjectGalleryImageItem = {
+  type?: "image";
   src: string;
   alt: string;
   label: string;
   /** 畫廊格線跨欄（資料驅動，不依賴陣列索引） */
   wide?: boolean;
+};
+
+export type ProjectGalleryVideoItem = {
+  type: "video";
+  src: string;
+  poster?: string;
+  alt: string;
+  label: string;
+  wide?: boolean;
+};
+
+export type ProjectGalleryItem =
+  | ProjectGalleryImageItem
+  | ProjectGalleryVideoItem;
+
+export function isVideoGalleryItem(
+  item: ProjectGalleryItem,
+): item is ProjectGalleryVideoItem {
+  return item.type === "video";
+}
+
+export type ProjectHeroVideo = {
+  src: string;
+  poster?: string;
 };
 
 export type ProjectItem = {
@@ -58,6 +83,7 @@ export type ProjectItem = {
   summary: string[];
   gallery: ProjectGalleryItem[];
   thumbnail: string;
+  heroVideo?: ProjectHeroVideo;
   links?: { label: string; href: string; external?: boolean }[];
 };
 
