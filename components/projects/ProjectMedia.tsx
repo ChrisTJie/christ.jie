@@ -1,83 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef } from "react";
+import {
+  getSlidePosterSrc,
+  resolvePreviewSlide,
+  type HeroResolvableProject,
+} from "@/lib/hero";
 import { withBasePath } from "@/lib/base-path";
-import { isVideoGalleryItem, type ProjectGalleryItem, type ProjectHeroVideo } from "@/lib/types";
-
-const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-
-function subscribeReducedMotion(onStoreChange: () => void) {
-  const media = window.matchMedia(REDUCED_MOTION_QUERY);
-  media.addEventListener("change", onStoreChange);
-  return () => media.removeEventListener("change", onStoreChange);
-}
-
-function getReducedMotionSnapshot() {
-  return window.matchMedia(REDUCED_MOTION_QUERY).matches;
-}
-
-function useReducedMotion() {
-  return useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    () => false,
-  );
-}
-
-type ProjectHeroMediaProps = {
-  title: string;
-  thumbnail: string;
-  heroVideo?: ProjectHeroVideo;
-};
-
-export function ProjectHeroMedia({
-  title,
-  thumbnail,
-  heroVideo,
-}: ProjectHeroMediaProps) {
-  const reducedMotion = useReducedMotion();
-
-  if (heroVideo && !reducedMotion) {
-    return (
-      <video
-        src={withBasePath(heroVideo.src)}
-        poster={heroVideo.poster ? withBasePath(heroVideo.poster) : withBasePath(thumbnail)}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
-        aria-label={`${title} demo reel`}
-      />
-    );
-  }
-
-  if (heroVideo && reducedMotion) {
-    return (
-      <video
-        src={withBasePath(heroVideo.src)}
-        poster={heroVideo.poster ? withBasePath(heroVideo.poster) : withBasePath(thumbnail)}
-        controls
-        playsInline
-        preload="metadata"
-        className="w-full h-full object-cover"
-        aria-label={`${title} demo reel`}
-      />
-    );
-  }
-
-  return (
-    <Image
-      src={thumbnail}
-      alt={title}
-      width={1400}
-      height={600}
-      className="w-full h-full object-cover opacity-80 mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700 group-hover:scale-105"
-      priority
-    />
-  );
-}
+import { useReducedMotion } from "@/lib/use-reduced-motion";
+import {
+  isVideoGalleryItem,
+  isVideoMediaItem,
+  type ProjectGalleryItem,
+} from "@/lib/types";
 
 type ProjectGalleryTileProps = {
   item: ProjectGalleryItem;
@@ -115,21 +51,20 @@ export function ProjectGalleryTile({ item }: ProjectGalleryTileProps) {
 }
 
 type ProjectCardPreviewProps = {
-  title: string;
-  thumbnail: string;
-  heroVideo?: ProjectHeroVideo;
+  project: HeroResolvableProject;
   hovered: boolean;
 };
 
 export function ProjectCardPreview({
-  title,
-  thumbnail,
-  heroVideo,
+  project,
   hovered,
 }: ProjectCardPreviewProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const reducedMotion = useReducedMotion();
-  const canPreview = Boolean(heroVideo) && !reducedMotion;
+  const previewSlide = resolvePreviewSlide(project);
+  const isVideo = isVideoMediaItem(previewSlide);
+  const canPreview = isVideo && !reducedMotion;
+  const posterSrc = getSlidePosterSrc(previewSlide, project.thumbnail);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -148,22 +83,18 @@ export function ProjectCardPreview({
   return (
     <div className="absolute inset-0">
       <Image
-        src={thumbnail}
-        alt={title}
+        src={posterSrc}
+        alt={project.title}
         width={800}
         height={600}
         className={`w-full h-full object-cover transition-opacity duration-500 ${canPreview && hovered ? "opacity-0" : "opacity-80 group-hover:opacity-100"
           }`}
       />
-      {canPreview && heroVideo && (
+      {canPreview && (
         <video
           ref={videoRef}
-          src={withBasePath(heroVideo.src)}
-          poster={
-            heroVideo.poster
-              ? withBasePath(heroVideo.poster)
-              : withBasePath(thumbnail)
-          }
+          src={withBasePath(previewSlide.src)}
+          poster={withBasePath(posterSrc)}
           muted
           loop
           playsInline

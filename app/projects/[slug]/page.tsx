@@ -3,10 +3,11 @@ import { Link } from "@/lib/navigation";
 import { notFound } from "next/navigation";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { Chip } from "@/components/ui/Chip";
+import { ProjectHeroCarousel } from "@/components/projects/ProjectHeroCarousel";
 import {
   ProjectGalleryTile,
-  ProjectHeroMedia,
 } from "@/components/projects/ProjectMedia";
+import { resolveHeroConfig } from "@/lib/hero";
 import { isVideoGalleryItem } from "@/lib/types";
 import { getProjectBySlug, projects } from "@/content/projects";
 
@@ -33,6 +34,8 @@ export default async function ProjectDetailPage({ params }: Props) {
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
+  const heroConfig = resolveHeroConfig(project);
+
   return (
     <main className="pt-32 pb-[120px]">
       <div className="max-w-[1280px] mx-auto px-4 md:px-16">
@@ -45,21 +48,11 @@ export default async function ProjectDetailPage({ params }: Props) {
         </Link>
 
         <section className="mb-24">
-          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-surface-container-high border border-tertiary/20 overflow-hidden mb-8 group">
-            <ProjectHeroMedia
-              title={project.title}
-              thumbnail={project.thumbnail}
-              heroVideo={project.heroVideo}
-            />
-            <div className="absolute top-4 left-4 font-mono text-[12px] font-medium tracking-widest text-tertiary opacity-70">
-              SYS.OP. [ACTIVE] // {project.category}
-            </div>
-            <div className="absolute bottom-4 right-4 flex gap-2">
-              <span className="w-2 h-2 bg-primary-container animate-pulse" />
-              <span className="w-2 h-2 bg-on-surface-variant" />
-              <span className="w-2 h-2 bg-on-surface-variant" />
-            </div>
-          </div>
+          <ProjectHeroCarousel
+            title={project.title}
+            config={heroConfig}
+            category={project.category}
+          />
           <div className="max-w-3xl">
             <h1 className="text-3xl md:text-5xl font-bold text-pure-white mb-2 tracking-tight">
               {project.title}

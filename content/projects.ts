@@ -12,6 +12,28 @@ export const projects: ProjectItem[] = [
     deployed: "2023.11",
     thumbnail:
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop",
+    hero: {
+      slides: [
+        {
+          type: "image",
+          src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1400&h=600&fit=crop",
+          alt: "威脅偵測介面總覽",
+          label: "01 // COMMAND_VIEW",
+        },
+        {
+          type: "image",
+          src: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1400&h=600&fit=crop",
+          alt: "終端機介面",
+          label: "02 // TERMINAL_VIEW",
+        },
+        {
+          type: "image",
+          src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&h=600&fit=crop",
+          alt: "全球節點地圖",
+          label: "03 // GEO_NODES",
+        },
+      ],
+    },
     role: "Lead UI/UX Engineer",
     timeline: "Q3 2023 - Q1 2024",
     summary: [
@@ -126,6 +148,28 @@ export const projects: ProjectItem[] = [
     wide: true,
     thumbnail:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=600&fit=crop",
+    hero: {
+      slides: [
+        {
+          type: "image",
+          src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&h=600&fit=crop",
+          alt: "全球資料流地圖總覽",
+          label: "01 // GLOBAL_MESH",
+        },
+        {
+          type: "image",
+          src: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1400&h=600&fit=crop",
+          alt: "終端機視圖",
+          label: "02 // TERMINAL_VIEW",
+        },
+        {
+          type: "image",
+          src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&h=600&fit=crop",
+          alt: "硬體同步節點",
+          label: "03 // HARDWARE_SYNC",
+        },
+      ],
+    },
     role: "Lead Architect UI/UX",
     timeline: "Q1 2023 - Q3 2023",
     summary: [
@@ -196,9 +240,22 @@ export const projects: ProjectItem[] = [
     deployed: "2026.06",
     featured: true,
     thumbnail: "/projects/glitch-code-reel/poster.jpg",
-    heroVideo: {
-      src: "/projects/glitch-code-reel/demo.mp4",
-      poster: "/projects/glitch-code-reel/poster.jpg",
+    hero: {
+      slides: [
+        {
+          type: "video",
+          src: "/projects/glitch-code-reel/demo.mp4",
+          poster: "/projects/glitch-code-reel/poster.jpg",
+          alt: "Glitch 程式碼 stock footage 完整片段",
+          label: "01 // GLITCH_REEL",
+        },
+        {
+          type: "image",
+          src: "/projects/glitch-code-reel/poster.jpg",
+          alt: "Glitch 程式碼素材靜態海報",
+          label: "02 // POSTER_STILL",
+        },
+      ],
     },
     summary: [
       "一段約 10 秒的 glitch 程式碼 stock footage，以數位雜訊、終端機文字與干擾效果呈現 programming 視覺語彙。",

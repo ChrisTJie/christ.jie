@@ -63,6 +63,49 @@ export function isVideoGalleryItem(
   return item.type === "video";
 }
 
+export type ProjectMediaImage = {
+  type?: "image";
+  src: string;
+  alt: string;
+};
+
+export type ProjectMediaVideo = {
+  type: "video";
+  src: string;
+  alt: string;
+  poster?: string;
+};
+
+export type ProjectMediaItem = ProjectMediaImage | ProjectMediaVideo;
+
+export function isVideoMediaItem(
+  item: ProjectMediaItem,
+): item is ProjectMediaVideo {
+  return item.type === "video";
+}
+
+export type ProjectHeroSlide = ProjectMediaItem & {
+  label?: string;
+  id?: string;
+};
+
+export type ProjectHeroConfig = {
+  slides: ProjectHeroSlide[];
+  autoplay?: boolean;
+  intervalMs?: number;
+  loop?: boolean;
+  showIndicators?: boolean;
+};
+
+export type ResolvedHeroConfig = {
+  slides: ProjectHeroSlide[];
+  autoplay: boolean;
+  intervalMs: number;
+  loop: boolean;
+  showIndicators: boolean;
+};
+
+/** @deprecated 請改用 `hero.slides` */
 export type ProjectHeroVideo = {
   src: string;
   poster?: string;
@@ -83,6 +126,8 @@ export type ProjectItem = {
   summary: string[];
   gallery: ProjectGalleryItem[];
   thumbnail: string;
+  hero?: ProjectHeroConfig;
+  /** @deprecated 請改用 `hero.slides` */
   heroVideo?: ProjectHeroVideo;
   links?: { label: string; href: string; external?: boolean }[];
 };

@@ -88,12 +88,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         className={`relative overflow-hidden bg-surface-dim ${isWide ? "h-64 md:h-80" : "h-64 md:h-72"
           }`}
       >
-        <ProjectCardPreview
-          title={project.title}
-          thumbnail={project.thumbnail}
-          heroVideo={project.heroVideo}
-          hovered={hovered}
-        />
+        <ProjectCardPreview project={project} hovered={hovered} />
         <div className="absolute inset-0 bg-gradient-to-t from-surface-container-high to-transparent opacity-90" />
         <div className="absolute top-4 right-4 flex gap-2">
           <span className="px-2 py-1 bg-surface/80 backdrop-blur-md border border-tertiary/30 font-mono text-[10px] text-tertiary tracking-widest uppercase">
