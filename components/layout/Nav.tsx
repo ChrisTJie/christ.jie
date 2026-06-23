@@ -2,7 +2,7 @@
 
 import { Link } from "@/lib/navigation";
 import { usePathname } from "next/navigation";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { profile } from "@/content/profile";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { withBasePath } from "@/lib/base-path";
@@ -65,6 +65,29 @@ export function Nav() {
     return () => window.removeEventListener("resize", updateIndicator);
   }, [updateIndicator]);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)");
+    const handleChange = () => {
+      if (media.matches) setMenuOpen(false);
+    };
+
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
+  }, []);
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
   const setLinkRef = (href: string) => (el: HTMLElement | null) => {
     if (el) {
       linkRefs.current.set(href, el);
@@ -124,70 +147,88 @@ export function Nav() {
           DOWNLOAD_CV
         </a>
 
-        {menuOpen ? (
-          <button
-            type="button"
-            className="md:hidden text-primary p-2"
-            onClick={() => setMenuOpen(false)}
-            aria-label="關閉選單"
-            aria-expanded="true"
-          >
-            <MaterialIcon name="close" filled />
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="md:hidden text-primary p-2"
-            onClick={() => setMenuOpen(true)}
-            aria-label="開啟選單"
-            aria-expanded="false"
-          >
-            <MaterialIcon name="menu" filled />
-          </button>
-        )}
+        <button
+          type="button"
+          className="mobile-nav-toggle md:hidden relative flex h-11 w-11 items-center justify-center text-primary"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label={menuOpen ? "關閉選單" : "開啟選單"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav-panel"
+        >
+          <MaterialIcon
+            name="menu"
+            filled
+            className={`mobile-nav-toggle-icon absolute text-[26px] ${menuOpen
+              ? "scale-75 rotate-90 opacity-0"
+              : "scale-100 rotate-0 opacity-100"
+              }`}
+          />
+          <MaterialIcon
+            name="close"
+            filled
+            className={`mobile-nav-toggle-icon absolute text-[26px] ${menuOpen
+              ? "scale-100 rotate-0 opacity-100"
+              : "scale-75 -rotate-90 opacity-0"
+              }`}
+          />
+        </button>
       </div>
 
-      {menuOpen && (
-        <div className="md:hidden border-t border-tertiary/20 bg-surface/95 backdrop-blur-xl px-4 py-4 flex flex-col gap-3 font-mono text-[13px] font-medium tracking-wider">
-          {navItems.map((item) => {
-            const active = !item.external && isActive(pathname, item.href);
-            const className = active
-              ? "text-primary font-bold border-l-2 border-primary pl-2"
-              : "text-on-surface-variant hover:text-primary pl-2";
+      <div
+        id="mobile-nav-panel"
+        className="mobile-nav-panel md:hidden"
+        data-open={menuOpen}
+        aria-hidden={!menuOpen}
+      >
+        <div className="mobile-nav-panel-inner">
+          <div className="mobile-nav-panel-content border-t border-tertiary/20 bg-surface/95 backdrop-blur-xl px-4 py-4 flex flex-col gap-3 font-mono text-[13px] font-medium tracking-wider">
+            {navItems.map((item, index) => {
+              const active = !item.external && isActive(pathname, item.href);
+              const className = `mobile-nav-item ${active
+                ? "text-primary font-bold border-l-2 border-primary pl-2"
+                : "text-on-surface-variant hover:text-primary pl-2"
+                }`;
 
-            if (item.external) {
+              if (item.external) {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={className}
+                    style={{ "--nav-item-index": index } as CSSProperties}
+                    onClick={closeMenu}
+                    tabIndex={menuOpen ? 0 : -1}
+                  >
+                    {item.label}
+                  </a>
+                );
+              }
+
               return (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
                   className={className}
-                  onClick={() => setMenuOpen(false)}
+                  style={{ "--nav-item-index": index } as CSSProperties}
+                  onClick={closeMenu}
+                  tabIndex={menuOpen ? 0 : -1}
                 >
                   {item.label}
-                </a>
+                </Link>
               );
-            }
-
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={className}
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-          <a
-            href={withBasePath("/cv.pdf")}
-            className="inline-flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 mt-2 w-fit"
-          >
-            <MaterialIcon name="download" filled />
-            DOWNLOAD_CV
-          </a>
+            })}
+            <a
+              href={withBasePath("/cv.pdf")}
+              className="mobile-nav-item inline-flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 mt-2 w-fit"
+              style={{ "--nav-item-index": navItems.length } as CSSProperties}
+              tabIndex={menuOpen ? 0 : -1}
+            >
+              <MaterialIcon name="download" filled />
+              DOWNLOAD_CV
+            </a>
+          </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 }

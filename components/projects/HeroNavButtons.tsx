@@ -27,7 +27,7 @@ export function HeroNavButtons({
   const nextDisabled = !loop && atEnd;
 
   const positionClass =
-    "absolute top-1/2 -translate-y-1/2 z-20 opacity-0 pointer-events-none transition-opacity duration-300 group-hover:opacity-100 group-hover:pointer-events-auto focus-visible:opacity-100 focus-visible:pointer-events-auto";
+    "absolute top-1/2 -translate-y-1/2 z-20 transition-opacity duration-300 opacity-100 pointer-events-auto md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto focus-visible:opacity-100 focus-visible:pointer-events-auto";
 
   const buttonClass = (disabled: boolean) =>
     `flex items-center justify-center w-11 h-11 md:w-14 md:h-14 border rounded-sm backdrop-blur-md transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container ${disabled

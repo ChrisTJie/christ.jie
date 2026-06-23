@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { HeroIndicators } from "@/components/projects/HeroIndicators";
 import { HeroNavButtons } from "@/components/projects/HeroNavButtons";
 import { ProjectHeroSlideView } from "@/components/projects/ProjectHeroSlideView";
@@ -21,6 +21,8 @@ export function ProjectHeroCarousel({
   const { slides, autoplay, intervalMs, loop, showIndicators } = config;
   const reducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const goTo = useCallback(
     (index: number) => {
@@ -63,14 +65,42 @@ export function ProjectHeroCarousel({
     }
   };
 
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (slides.length <= 1) return;
+    touchStartX.current = event.touches[0].clientX;
+    touchStartY.current = event.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (
+      slides.length <= 1 ||
+      touchStartX.current === null ||
+      touchStartY.current === null
+    ) {
+      return;
+    }
+
+    const deltaX = event.changedTouches[0].clientX - touchStartX.current;
+    const deltaY = event.changedTouches[0].clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+    if (deltaX < 0) goNext();
+    else goPrev();
+  };
+
   return (
     <div
-      className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-surface-container-high border border-tertiary/20 overflow-hidden mb-8 group"
+      className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-surface-container-high border border-tertiary/20 overflow-hidden mb-8 group touch-pan-y"
       role="region"
       aria-roledescription="carousel"
       aria-label={`${title} 封面媒體`}
       tabIndex={slides.length > 1 ? 0 : undefined}
       onKeyDown={handleKeyDown}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="absolute inset-0">
         {slides.map((slide, index) => (
@@ -107,7 +137,7 @@ export function ProjectHeroCarousel({
       )}
 
       {slides[activeIndex]?.label && (
-        <div className="absolute bottom-4 left-4 z-20 font-mono text-[12px] font-medium tracking-widest text-tertiary pointer-events-none">
+        <div className="absolute bottom-14 left-3 right-[7.5rem] md:bottom-4 md:left-4 md:right-auto z-20 font-mono text-[10px] md:text-[12px] font-medium tracking-widest text-tertiary pointer-events-none truncate">
           {slides[activeIndex].label}
         </div>
       )}

@@ -21,7 +21,7 @@ export function HeroIndicators({
     <div
       role="tablist"
       aria-label={`${title} 媒體切換`}
-      className="absolute bottom-4 right-4 z-20 flex gap-2"
+      className="absolute bottom-2 right-2 z-20 flex gap-0.5"
     >
       {slides.map((slide, index) => {
         const isActive = index === activeIndex;
@@ -35,11 +35,16 @@ export function HeroIndicators({
               slide.label ?? `Slide ${index + 1} of ${slides.length}`
             }
             onClick={() => onSelect(index)}
-            className={`w-2 h-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container ${isActive
-              ? "bg-primary-container animate-pulse"
-              : "bg-on-surface-variant hover:bg-primary-container/50"
-              }`}
-          />
+            className="flex min-w-11 min-h-11 items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container"
+          >
+            <span
+              aria-hidden="true"
+              className={`block h-2 w-2 transition-colors ${isActive
+                ? "bg-primary-container animate-pulse"
+                : "bg-on-surface-variant hover:bg-primary-container/50"
+                }`}
+            />
+          </button>
         );
       })}
     </div>

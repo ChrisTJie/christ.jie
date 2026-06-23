@@ -37,7 +37,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   const heroConfig = resolveHeroConfig(project);
 
   return (
-    <main className="pt-32 pb-[120px]">
+    <main className="pt-32 md:pt-32 pb-20 md:pb-[120px]">
       <div className="max-w-[1280px] mx-auto px-4 md:px-16">
         <Link
           href="/projects/"
@@ -57,7 +57,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             <h1 className="text-3xl md:text-5xl font-bold text-pure-white mb-2 tracking-tight">
               {project.title}
             </h1>
-            <p className="text-2xl font-semibold text-primary-container mb-8">
+            <p className="text-xl md:text-2xl font-semibold text-primary-container mb-8">
               {project.subtitle}
             </p>
           </div>
@@ -138,7 +138,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         </section>
 
         <section>
-          <div className="flex items-center justify-between mb-8 border-b border-tertiary/20 pb-4">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-8 border-b border-tertiary/20 pb-4">
             <h2 className="text-2xl font-semibold text-pure-white tracking-tight">
               VISUAL_ARCHIVE
             </h2>

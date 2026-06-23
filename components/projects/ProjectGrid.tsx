@@ -51,7 +51,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-2 text-on-surface-variant font-mono text-sm">
+        <div className="hidden md:flex items-center gap-2 text-on-surface-variant font-mono text-sm">
           <MaterialIcon name="sort" className="text-[18px]" />
           SORT_BY: CHRONOLOGICAL
         </div>
@@ -81,6 +81,13 @@ function ProjectCard({ project }: { project: ProjectItem }) {
       href={`/projects/${project.slug}/`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onPointerDown={(event) => {
+        if (event.pointerType === "touch") setHovered(true);
+      }}
+      onPointerUp={(event) => {
+        if (event.pointerType === "touch") setHovered(false);
+      }}
+      onPointerCancel={() => setHovered(false)}
       className={`cyber-card group block bg-surface-container-high border border-tertiary/10 rounded overflow-hidden ${isWide ? "lg:col-span-2" : ""
         }`}
     >
@@ -101,7 +108,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
           )}
         </div>
       </div>
-      <div className={`p-6 relative z-10 ${isWide ? "-mt-20" : "-mt-12"}`}>
+      <div className={`p-6 relative z-10 ${isWide ? "-mt-12 lg:-mt-20" : "-mt-12"}`}>
         <div
           className={`glass-panel rounded border-l-2 border-l-primary-container ${isWide ? "p-6 border-t-2 border-t-primary-container" : "p-4"
             }`}

@@ -6,9 +6,9 @@ import { profile } from "@/content/profile";
 
 export default function Home() {
   return (
-    <main className="flex-grow pt-[100px] flex flex-col gap-[120px] px-4 md:px-16 max-w-[1280px] mx-auto w-full">
+    <main className="flex-grow pt-32 md:pt-[100px] flex flex-col gap-16 md:gap-[120px] px-4 md:px-16 max-w-[1280px] mx-auto w-full">
       {/* Hero */}
-      <section className="min-h-[70vh] flex flex-col justify-center relative">
+      <section className="min-h-[58vh] md:min-h-[70vh] flex flex-col justify-center relative">
         <div className="absolute inset-0 z-0 opacity-20 blur-3xl rounded-full bg-primary-container w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mix-blend-screen pointer-events-none" />
         <div className="z-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center w-full">
           <div className="flex flex-col gap-10 max-w-3xl">

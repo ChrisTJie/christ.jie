@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { getViewportSize } from "@/lib/viewport";
 
 const CYAN = { r: 0, g: 245, b: 255 };
 const TEAL = { r: 141, g: 209, b: 220 };
@@ -90,8 +91,7 @@ export function NeuralNetworkBackground() {
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = window.innerWidth;
-      height = window.innerHeight;
+      ({ width, height } = getViewportSize());
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       canvas.style.width = `${width}px`;
@@ -302,7 +302,7 @@ export function NeuralNetworkBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none absolute inset-0 opacity-50"
+      className="pointer-events-none absolute inset-0 max-w-full opacity-50"
       aria-hidden="true"
     />
   );

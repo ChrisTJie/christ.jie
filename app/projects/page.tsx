@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="flex-grow pt-[100px] pb-[120px] px-4 md:px-16 max-w-[1280px] mx-auto w-full">
-      <header className="mb-16 mt-8">
+    <main className="flex-grow pt-32 md:pt-[100px] pb-20 md:pb-[120px] px-4 md:px-16 max-w-[1280px] mx-auto w-full">
+      <header className="mb-12 md:mb-16 mt-4 md:mt-8">
         <div className="inline-flex items-center gap-2 px-3 py-1 border border-tertiary/20 bg-surface-container-high/50 font-mono text-[12px] font-medium tracking-widest text-tertiary mb-6 rounded-sm">
           <MaterialIcon name="grid_view" className="text-[14px]" />
           DATA_ARCHIVE_ACCESS

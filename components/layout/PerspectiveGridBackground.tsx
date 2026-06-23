@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { getViewportSize } from "@/lib/viewport";
 
 const CYAN = "rgba(0, 245, 255";
 const TEAL = "rgba(141, 209, 220";
@@ -31,8 +32,7 @@ export function PerspectiveGridBackground() {
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = window.innerWidth;
-      height = window.innerHeight;
+      ({ width, height } = getViewportSize());
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       canvas.style.width = `${width}px`;
@@ -147,7 +147,7 @@ export function PerspectiveGridBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 opacity-70"
+      className="absolute inset-0 max-w-full opacity-70"
       aria-hidden="true"
     />
   );

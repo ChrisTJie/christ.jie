@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 export default function ExperiencePage() {
   return (
-    <main className="flex-grow pt-[100px] px-4 md:px-16 max-w-7xl mx-auto w-full mb-16">
-      <header className="mb-16 pt-12 md:pt-24 relative">
+    <main className="flex-grow pt-32 md:pt-[100px] px-4 md:px-16 max-w-7xl mx-auto w-full mb-16">
+      <header className="mb-12 md:mb-16 pt-4 md:pt-24 relative">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary-container/5 rounded-full blur-[100px] pointer-events-none" />
         <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4">
           Experience_<span className="text-primary-container">Log</span>
