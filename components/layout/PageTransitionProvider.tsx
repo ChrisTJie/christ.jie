@@ -12,7 +12,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { startTransition } from "react";
 
-export type TransitionPhase = "idle" | "leaving" | "entering";
+export type TransitionPhase = "idle" | "leaving" | "loading" | "entering";
 
 type PageTransitionContextValue = {
   phase: TransitionPhase;
@@ -42,29 +42,47 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const [phase, setPhase] = useState<TransitionPhase>("idle");
   const [showCurtain, setShowCurtain] = useState(false);
   const isNavigating = useRef(false);
+  const routeReady = useRef(false);
+  const pendingTarget = useRef<string | null>(null);
   const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const enterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const clearTimers = useCallback(() => {
     if (leaveTimer.current) clearTimeout(leaveTimer.current);
     if (enterTimer.current) clearTimeout(enterTimer.current);
+    leaveTimer.current = null;
+    enterTimer.current = null;
   }, []);
 
   useEffect(() => {
     return clearTimers;
   }, [clearTimers]);
 
-  useEffect(() => {
-    if (!isNavigating.current) return;
+  const beginEntering = useCallback(() => {
+    if (!routeReady.current || !isNavigating.current) return;
 
+    routeReady.current = false;
+    pendingTarget.current = null;
     isNavigating.current = false;
+    clearTimers();
+    setPhase("entering");
     setShowCurtain(true);
 
     enterTimer.current = setTimeout(() => {
       setPhase("idle");
       setShowCurtain(false);
     }, ENTER_MS);
-  }, [pathname]);
+  }, [clearTimers]);
+
+  useEffect(() => {
+    if (!pendingTarget.current) return;
+    if (normalizePath(pathname) !== pendingTarget.current) return;
+
+    routeReady.current = true;
+    if (phase === "loading") {
+      beginEntering();
+    }
+  }, [beginEntering, pathname, phase]);
 
   const navigate = useCallback(
     (href: string) => {
@@ -74,18 +92,23 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       if (target === current || phase !== "idle") return;
 
       clearTimers();
+      routeReady.current = false;
+      pendingTarget.current = target;
       isNavigating.current = true;
       setPhase("leaving");
       setShowCurtain(true);
 
       leaveTimer.current = setTimeout(() => {
-        setPhase("entering");
+        setPhase("loading");
         startTransition(() => {
           router.push(href);
         });
+        if (routeReady.current) {
+          beginEntering();
+        }
       }, LEAVE_MS);
     },
-    [clearTimers, pathname, phase, router],
+    [beginEntering, clearTimers, pathname, phase, router],
   );
 
   return (

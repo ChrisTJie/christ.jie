@@ -260,6 +260,13 @@ body {
   pointer-events: none;
 }
 
+.page-content.page-phase-loading {
+  opacity: 0;
+  transform: translateY(-28px) scale(0.96);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
 .page-content.page-phase-entering {
   animation: page-enter 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -310,8 +317,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(5, 20, 36, 0.55);
-  animation: curtain-fade 0.9s ease-out both;
+  background: rgba(5, 20, 36, 0.75);
 }
 
 .transition-curtain::after {
@@ -329,34 +335,68 @@ body {
   box-shadow:
     0 0 24px #00f5ff,
     0 0 60px rgba(0, 245, 255, 0.4);
-  animation: curtain-sweep 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.transition-curtain[data-phase="leaving"]::before {
+  animation: curtain-overlay-in 0.35s ease-out forwards;
+}
+
+.transition-curtain[data-phase="loading"]::before {
+  opacity: 1;
+}
+
+.transition-curtain[data-phase="entering"]::before {
+  animation: curtain-overlay-out 0.72s ease-out forwards;
 }
 
 .transition-curtain[data-phase="leaving"]::after {
   top: 0;
-  animation-name: curtain-sweep-down;
+  animation: curtain-sweep-down 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.transition-curtain[data-phase="loading"]::after {
+  top: 0;
+  animation: curtain-scan-loop 2.2s ease-in-out infinite;
 }
 
 .transition-curtain[data-phase="entering"]::after {
   bottom: 0;
-  animation-name: curtain-sweep-up;
+  animation: curtain-sweep-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-@keyframes curtain-fade {
-  0% {
+@keyframes curtain-overlay-in {
+  from {
     opacity: 0;
   }
 
-  20% {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes curtain-overlay-out {
+  from {
     opacity: 1;
   }
 
-  80% {
-    opacity: 1;
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes curtain-scan-loop {
+  0% {
+    top: 0%;
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.85;
   }
 
   100% {
-    opacity: 0;
+    top: 100%;
+    opacity: 0.35;
   }
 }
 
@@ -395,8 +435,16 @@ body {
 @media (prefers-reduced-motion: reduce) {
 
   .page-content.page-phase-leaving,
+  .page-content.page-phase-loading,
   .page-content.page-phase-entering {
     animation: none !important;
+  }
+
+  .page-content.page-phase-loading {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    pointer-events: auto;
   }
 
   .transition-curtain {
