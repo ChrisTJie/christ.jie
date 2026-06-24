@@ -1,0 +1,79 @@
+# 內容範本
+
+複製以下檔案至 `content/` 對應位置，替換 placeholder 後即可驅動頁面。範本 **不會** 被應用程式匯入，僅供參考與型別檢查。
+
+## 檔案一覽
+
+| 檔案 | 用途 | 複製目標 |
+|------|------|----------|
+| [`full-project.ts`](./full-project.ts) | 專案全部欄位與媒體組合 | `content/projects/{slug}.ts` |
+| [`profile.template.ts`](./profile.template.ts) | 首頁與 SEO 個人檔 | `content/profile.ts` |
+| [`experience.template.ts`](./experience.template.ts) | 經歷頁四種資料 | `content/experience.ts` |
+
+## 新增專案流程
+
+### 1. 建立內容檔
+
+```bash
+cp docs/examples/full-project.ts content/projects/my-project.ts
+```
+
+編輯檔案：
+
+- 將 `slug`、`myFullProject` 匯出名稱改為實際專案
+- 依需求刪除 `featured`、`wide`、`links`、`hero` 等選填區塊
+- 確認 `category` 為合法值（見 [projects/categories.md](../projects/categories.md)）
+
+### 2. 建立媒體目錄
+
+```
+public/projects/{slug}/
+├── thumbnail.jpg      # 必填
+├── hero-01.jpg        # 選填（Hero）
+├── hero-02.jpg
+├── poster.jpg
+├── demo.mp4
+├── gallery-01.jpg     # 畫廊
+└── gallery-02.jpg
+```
+
+素材較少時可只保留 `thumbnail.jpg` 與實際使用的畫廊檔案，並從範本中刪除對應的 `hero` slides 與 `gallery` 項目。
+
+### 3. 註冊至清單
+
+在 `content/projects/index.ts`：
+
+```ts
+import { myProject } from "@/content/projects/my-project";
+
+export const projects: ProjectItem[] = [
+  // ...
+  myProject,
+];
+```
+
+陣列順序即列表頁 **CURATED** 排序。
+
+### 4. 驗證
+
+```bash
+npm run dev
+```
+
+- 開啟 `/projects/` 確認卡片、篩選、排序
+- 開啟 `/projects/{slug}/` 確認 Hero、摘要、畫廊、連結
+
+可選執行 `npm test` 確認 Hero 相關測試仍通過。
+
+## 欄位取捨建議
+
+| 情境 | 可省略 |
+|------|--------|
+| 快速上架、素材少 | `hero`、`role`、`timeline`、`links`、`featured`、`wide`；畫廊保留一項即可 |
+| 精選大卡、多媒體 | 保留 `featured`、`wide`；依實際刪減 hero slides / gallery 項目 |
+| 影片為主作品 | 參考 `full-project.ts` + `content/projects/glitch-code-reel.ts`；可刪多圖 hero slides |
+| 僅縮圖展示 | 整個 `hero` 區塊 |
+
+## 型別檢查
+
+`docs/examples/*.ts` 納入專案 `tsconfig.json`，修改範本後若型別不符，`tsc` / IDE 會即時提示。
