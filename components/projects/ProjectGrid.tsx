@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "@/lib/navigation";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { ProjectCardPreview } from "@/components/projects/ProjectMedia";
@@ -9,6 +9,21 @@ import { projectCategories } from "@/content/projects";
 
 type ProjectGridProps = {
   projects: ProjectItem[];
+};
+
+const SORT_MODES = ["CURATED", "CHRONOLOGICAL_DESC", "CHRONOLOGICAL"] as const;
+type SortMode = (typeof SORT_MODES)[number];
+
+const SORT_LABELS: Record<SortMode, string> = {
+  CURATED: "CURATED",
+  CHRONOLOGICAL: "CHRONOLOGICAL",
+  CHRONOLOGICAL_DESC: "REVERSE_CHRONO",
+};
+
+const SORT_ICONS: Record<SortMode, string> = {
+  CURATED: "swap_vert",
+  CHRONOLOGICAL: "arrow_upward",
+  CHRONOLOGICAL_DESC: "arrow_downward",
 };
 
 const categoryMap: Record<string, string[]> = {
@@ -27,14 +42,45 @@ const categoryFilterClass =
 
 export function ProjectGrid({ projects }: ProjectGridProps) {
   const [activeCategory, setActiveCategory] = useState("ALL_SYSTEMS");
+  const [sortMode, setSortMode] = useState<SortMode>("CURATED");
 
-  const filtered =
-    activeCategory === "ALL_SYSTEMS"
-      ? projects
-      : projects.filter((p) => {
-        const cats = categoryMap[activeCategory] ?? [];
-        return cats.includes(p.category);
-      });
+  const curatedOrder = useMemo(
+    () => new Map(projects.map((p, i) => [p.slug, i])),
+    [projects],
+  );
+
+  const filtered = useMemo(
+    () =>
+      activeCategory === "ALL_SYSTEMS"
+        ? projects
+        : projects.filter((p) => {
+          const cats = categoryMap[activeCategory] ?? [];
+          return cats.includes(p.category);
+        }),
+    [projects, activeCategory],
+  );
+
+  const sorted = useMemo(() => {
+    const list = [...filtered];
+    if (sortMode === "CURATED") {
+      return list.sort(
+        (a, b) =>
+          (curatedOrder.get(a.slug) ?? 0) - (curatedOrder.get(b.slug) ?? 0),
+      );
+    }
+    return list.sort((a, b) =>
+      sortMode === "CHRONOLOGICAL"
+        ? a.deployed.localeCompare(b.deployed)
+        : b.deployed.localeCompare(a.deployed),
+    );
+  }, [filtered, sortMode, curatedOrder]);
+
+  function cycleSortMode() {
+    setSortMode((prev) => {
+      const idx = SORT_MODES.indexOf(prev);
+      return SORT_MODES[(idx + 1) % SORT_MODES.length];
+    });
+  }
 
   return (
     <>
@@ -55,17 +101,25 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
             </button>
           ))}
         </div>
-        <div className="hidden md:flex items-center gap-2 text-on-surface-variant font-mono text-sm">
-          <MaterialIcon name="sort" className="text-[18px]" />
-          SORT_BY: CHRONOLOGICAL
-        </div>
+        <button
+          type="button"
+          onClick={cycleSortMode}
+          className={`flex items-center gap-2 px-4 py-1.5 font-mono text-[12px] font-medium tracking-widest uppercase border rounded-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container/60 ${sortMode !== "CURATED"
+            ? "bg-primary-container/10 text-primary-container border-primary-container"
+            : "text-on-surface-variant border-tertiary/30 hover:text-primary-container hover:border-primary-container/50"
+            }`}
+          aria-label={`排序方式：${SORT_LABELS[sortMode]}，點擊切換`}
+        >
+          <MaterialIcon name={SORT_ICONS[sortMode]} className="text-[18px]" />
+          SORT_BY: {SORT_LABELS[sortMode]}
+        </button>
       </div>
 
       <div
-        key={activeCategory}
+        key={`${activeCategory}-${sortMode}`}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
       >
-        {filtered.map((project, index) => (
+        {sorted.map((project, index) => (
           <div
             key={project.slug}
             className={`motion-safe:animate-fade-up ${project.wide ? "lg:col-span-2" : ""}`}
