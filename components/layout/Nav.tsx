@@ -18,6 +18,12 @@ const navItems: {
     { href: `mailto:${profile.contactEmail}`, label: "STX_04_CONTACT", external: true },
   ];
 
+const navLinkBase =
+  "pb-1 transition-all duration-200 motion-safe:hover:drop-shadow-[0_0_6px_rgba(0,245,255,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-container/60 rounded-sm";
+
+const cvButtonClass =
+  "hidden md:inline-flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 font-mono text-[13px] font-medium uppercase tracking-wider rounded-none transition-all duration-200 ease-out hover:bg-primary hover:shadow-[0_0_20px_rgba(0,245,255,0.25)] motion-safe:active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container/60";
+
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/" || pathname === "";
   return pathname.startsWith(href.replace(/\/$/, ""));
@@ -101,7 +107,7 @@ export function Nav() {
       <div className="flex justify-between items-center px-4 md:px-16 py-4 max-w-[1280px] mx-auto">
         <Link
           href="/"
-          className="text-2xl font-bold text-primary tracking-tighter hover:text-primary-container transition-colors"
+          className="text-2xl font-bold text-primary tracking-tighter hover:text-primary-container transition-all duration-200 motion-safe:hover:drop-shadow-[0_0_8px_rgba(0,245,255,0.4)]"
         >
           {profile.brand}
         </Link>
@@ -113,8 +119,8 @@ export function Nav() {
           {navItems.map((item) => {
             const active = !item.external && isActive(pathname, item.href);
             const className = active
-              ? "text-primary font-bold pb-1"
-              : "text-on-surface-variant hover:text-primary transition-colors pb-1";
+              ? `text-primary font-bold ${navLinkBase}`
+              : `text-on-surface-variant hover:text-primary ${navLinkBase}`;
 
             if (item.external) {
               return (
@@ -141,7 +147,7 @@ export function Nav() {
 
         <a
           href={withBasePath("/cv.pdf")}
-          className="hidden md:inline-flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 font-mono text-[13px] font-medium uppercase tracking-wider hover:bg-primary transition-colors rounded-none"
+          className={cvButtonClass}
         >
           <MaterialIcon name="download" filled />
           DOWNLOAD_CV
@@ -184,7 +190,7 @@ export function Nav() {
           <div className="mobile-nav-panel-content border-t border-tertiary/20 bg-surface/95 backdrop-blur-xl px-4 py-4 flex flex-col gap-3 font-mono text-[13px] font-medium tracking-wider">
             {navItems.map((item, index) => {
               const active = !item.external && isActive(pathname, item.href);
-              const className = `mobile-nav-item ${active
+              const className = `mobile-nav-item transition-all duration-200 motion-safe:hover:drop-shadow-[0_0_6px_rgba(0,245,255,0.45)] ${active
                 ? "text-primary font-bold border-l-2 border-primary pl-2"
                 : "text-on-surface-variant hover:text-primary pl-2"
                 }`;
@@ -219,7 +225,7 @@ export function Nav() {
             })}
             <a
               href={withBasePath("/cv.pdf")}
-              className="mobile-nav-item inline-flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 mt-2 w-fit"
+              className="mobile-nav-item inline-flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 mt-2 w-fit transition-all duration-200 ease-out hover:bg-primary hover:shadow-[0_0_20px_rgba(0,245,255,0.25)] motion-safe:active:scale-[0.98]"
               style={{ "--nav-item-index": navItems.length } as CSSProperties}
               tabIndex={menuOpen ? 0 : -1}
             >

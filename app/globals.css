@@ -46,6 +46,34 @@
   --spacing-section: 120px;
   --spacing-container: 1280px;
   --radius-DEFAULT: 0.125rem;
+  --animate-neon-pulse: neon-pulse 2.5s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes neon-pulse {
+
+  0%,
+  100% {
+    text-shadow: 0 0 4px rgba(0, 245, 255, 0.35);
+  }
+
+  50% {
+    text-shadow:
+      0 0 8px rgba(0, 245, 255, 0.65),
+      0 0 20px rgba(0, 245, 255, 0.25);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 html {
@@ -940,6 +968,32 @@ body {
   }
 }
 
+/* Hero interactive layer */
+.hero-section {
+  isolation: isolate;
+}
+
+.hero-cursor-glow {
+  position: absolute;
+  width: min(42vw, 320px);
+  height: min(42vw, 320px);
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+      rgba(0, 245, 255, 0.14) 0%,
+      rgba(0, 245, 255, 0.05) 38%,
+      transparent 72%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  mix-blend-mode: screen;
+}
+
+.hero-cursor-glow[data-visible] {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   .xr-depth-plane,
@@ -947,8 +1001,15 @@ body {
   .xr-anchor-pulse,
   .xr-status-dot,
   .xr-hologram-scan,
-  .scanline {
+  .scanline,
+  .animate-neon-pulse,
+  .animate-fade-up,
+  .hero-cursor-glow {
     animation: none !important;
+  }
+
+  .hero-cursor-glow {
+    display: none;
   }
 
   .xr-status-message {

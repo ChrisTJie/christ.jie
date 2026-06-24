@@ -22,6 +22,9 @@ const categoryMap: Record<string, string[]> = {
   UI_ENGINEERING: ["UI_ENGINEERING"],
 };
 
+const categoryFilterClass =
+  "relative px-4 py-1.5 font-mono text-[12px] font-medium tracking-widest uppercase border rounded-sm transition-all duration-200 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-primary-container after:origin-left after:scale-x-0 after:transition-transform after:duration-300 motion-reduce:after:transition-none hover:after:scale-x-100 data-active:after:scale-x-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container/60";
+
 export function ProjectGrid({ projects }: ProjectGridProps) {
   const [activeCategory, setActiveCategory] = useState("ALL_SYSTEMS");
 
@@ -41,8 +44,9 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
             <button
               key={cat}
               type="button"
+              data-active={activeCategory === cat ? "" : undefined}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-1.5 font-mono text-[12px] font-medium tracking-widest uppercase border rounded-sm transition-colors ${activeCategory === cat
+              className={`${categoryFilterClass} ${activeCategory === cat
                 ? "bg-primary-container/10 text-primary-container border-primary-container"
                 : "text-on-surface-variant hover:text-primary-container hover:border-primary-container/50 border-transparent"
                 }`}
@@ -57,9 +61,18 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {filtered.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+      <div
+        key={activeCategory}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+      >
+        {filtered.map((project, index) => (
+          <div
+            key={project.slug}
+            className={`motion-safe:animate-fade-up ${project.wide ? "lg:col-span-2" : ""}`}
+            style={{ animationDelay: `${Math.min(index, 8) * 50}ms` }}
+          >
+            <ProjectCard project={project} />
+          </div>
         ))}
       </div>
 
@@ -88,8 +101,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         if (event.pointerType === "touch") setHovered(false);
       }}
       onPointerCancel={() => setHovered(false)}
-      className={`cyber-card group block bg-surface-container-high border border-tertiary/10 rounded overflow-hidden ${isWide ? "lg:col-span-2" : ""
-        }`}
+      className="cyber-card group block bg-surface-container-high border border-tertiary/10 rounded overflow-hidden"
     >
       <div
         className={`relative overflow-hidden bg-surface-dim ${isWide ? "h-64 md:h-80" : "h-64 md:h-72"
