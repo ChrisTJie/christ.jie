@@ -11,7 +11,11 @@ import {
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { startTransition } from "react";
-import { isOffline, navigateOffline } from "@/lib/offline-navigation";
+import {
+  hasOfflineController,
+  isOffline,
+  navigateOffline,
+} from "@/lib/offline-navigation";
 
 export type TransitionPhase = "idle" | "leaving" | "loading" | "entering";
 
@@ -88,7 +92,11 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const navigate = useCallback(
     (href: string) => {
       if (isOffline()) {
-        navigateOffline(href);
+        // On some mobile browsers, airplane mode can report offline before
+        // SW takes control. Hard navigation would then bypass cache and fail.
+        if (hasOfflineController()) {
+          navigateOffline(href);
+        }
         return;
       }
 
