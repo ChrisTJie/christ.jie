@@ -79,8 +79,8 @@ async function verifyBuildArtifacts() {
     sw.includes(`${basePath}/projects/`),
   );
   record(
-    "sw.js precache 含 profile 資產",
-    sw.includes(`${basePath}/profile/`),
+    "sw.js precache 含 Next flight (.txt)",
+    sw.includes(".txt"),
   );
 
   const projectAssets = await stat(path.join(outDir, "projects", "project-onyx"));

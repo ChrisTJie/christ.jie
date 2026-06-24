@@ -22,13 +22,19 @@ const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   skipWaiting: true,
   clientsClaim: true,
-  navigationPreload: true,
+  navigationPreload: false,
   runtimeCaching: [
     {
+      matcher: ({ url }) =>
+        url.pathname.endsWith(".txt") || url.pathname.includes("__next"),
+      handler: new CacheFirst({
+        cacheName: "next-flight",
+      }),
+    },
+    {
       matcher: ({ request }) => request.destination === "document",
-      handler: new NetworkFirst({
+      handler: new CacheFirst({
         cacheName: "pages",
-        networkTimeoutSeconds: 3,
         plugins: [
           {
             handlerDidError: async () =>

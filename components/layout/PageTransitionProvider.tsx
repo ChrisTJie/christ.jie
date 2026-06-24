@@ -11,6 +11,7 @@ import {
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { startTransition } from "react";
+import { isOffline, navigateOffline } from "@/lib/offline-navigation";
 
 export type TransitionPhase = "idle" | "leaving" | "loading" | "entering";
 
@@ -86,6 +87,11 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 
   const navigate = useCallback(
     (href: string) => {
+      if (isOffline()) {
+        navigateOffline(href);
+        return;
+      }
+
       const target = normalizePath(href);
       const current = normalizePath(pathname);
 

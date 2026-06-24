@@ -40,7 +40,7 @@ export default await serwist.withNextConfig(async (nextConfig) => {
     globDirectory: "out",
     precachePrerendered: false,
     globPatterns: [
-      "**/*.{html,js,css,woff2,png,jpg,jpeg,webmanifest,svg,json,ico}",
+      "**/*.{html,txt,js,css,woff2,png,jpg,jpeg,webmanifest,svg,json,ico}",
     ],
     globIgnores: [
       "**/sw.js",
