@@ -1,4 +1,5 @@
 import type { Profile } from "@/lib/types";
+import { profileAsset } from "@/lib/assets";
 
 export const profile: Profile = {
   name: "Chris T. Jie",
@@ -13,8 +14,7 @@ export const profile: Profile = {
   ],
   location: "台北 / Remote",
   status: "接受專案合作",
-  avatar:
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&crop=face",
+  avatar: profileAsset("avatar.jpg"),
   stats: [
     { id: "years-active", label: "YEARS_ACTIVE", value: 12 },
     { id: "systems-deployed", label: "SYSTEMS_DEPLOYED", value: 84, suffix: "+" },

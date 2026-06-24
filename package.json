@@ -4,13 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "dev:pwa": "concurrently -p none \"serwist build serwist.config.mjs --watch\" \"next dev\"",
+    "prebuild": "node scripts/generate-pwa-icons.mjs",
+    "build": "next build && serwist build serwist.config.mjs",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "assets:seed": "node scripts/seed-placeholder-assets.mjs",
+    "pwa:icons": "node scripts/generate-pwa-icons.mjs",
+    "verify:pwa": "node scripts/verify-pwa.mjs"
   },
   "dependencies": {
     "next": "16.2.9",
@@ -18,12 +23,18 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@serwist/cli": "^9.5.11",
+    "@serwist/next": "^9.5.11",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^10.0.3",
+    "esbuild": "^0.28.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "serwist": "^9.5.11",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^3.2.4"

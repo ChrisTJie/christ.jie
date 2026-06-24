@@ -7,7 +7,7 @@ import {
   resolvePreviewSlide,
   type HeroResolvableProject,
 } from "@/lib/hero";
-import { withBasePath } from "@/lib/base-path";
+import { resolveAssetSrc } from "@/lib/assets";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import {
   isVideoGalleryItem,
@@ -25,8 +25,8 @@ export function ProjectGalleryTile({ item }: ProjectGalleryTileProps) {
   if (isVideoGalleryItem(item)) {
     return (
       <video
-        src={withBasePath(item.src)}
-        poster={item.poster ? withBasePath(item.poster) : undefined}
+        src={resolveAssetSrc(item.src)}
+        poster={item.poster ? resolveAssetSrc(item.poster) : undefined}
         controls
         playsInline
         preload="metadata"
@@ -38,7 +38,7 @@ export function ProjectGalleryTile({ item }: ProjectGalleryTileProps) {
 
   return (
     <Image
-      src={item.src}
+      src={resolveAssetSrc(item.src)}
       alt={item.alt}
       width={600}
       height={600}
@@ -83,7 +83,7 @@ export function ProjectCardPreview({
   return (
     <div className="absolute inset-0">
       <Image
-        src={posterSrc}
+        src={resolveAssetSrc(posterSrc)}
         alt={project.title}
         width={800}
         height={600}
@@ -93,8 +93,8 @@ export function ProjectCardPreview({
       {canPreview && (
         <video
           ref={videoRef}
-          src={withBasePath(previewSlide.src)}
-          poster={withBasePath(posterSrc)}
+          src={resolveAssetSrc(previewSlide.src)}
+          poster={resolveAssetSrc(posterSrc)}
           muted
           loop
           playsInline

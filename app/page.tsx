@@ -3,6 +3,7 @@ import { Link } from "@/lib/navigation";
 import { Button } from "@/components/ui/Button";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { profile } from "@/content/profile";
+import { resolveAssetSrc } from "@/lib/assets";
 
 export default function Home() {
   return (
@@ -37,7 +38,7 @@ export default function Home() {
             <div className="absolute -inset-1 bg-primary-container/20 blur-xl rounded opacity-50 group-hover:opacity-100 transition-opacity" />
             <div className="relative border border-primary/30 overflow-hidden rounded aspect-[3/4] max-w-sm mx-auto md:mx-0 md:ml-auto xr-hologram">
               <Image
-                src={profile.avatar}
+                src={resolveAssetSrc(profile.avatar)}
                 alt={profile.name}
                 width={400}
                 height={533}

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { withBasePath } from "@/lib/base-path";
+import { resolveAssetSrc } from "@/lib/assets";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { isVideoMediaItem, type ProjectHeroSlide } from "@/lib/types";
 
@@ -52,8 +52,8 @@ export function ProjectHeroSlideView({
       return (
         <video
           ref={videoRef}
-          src={withBasePath(slide.src)}
-          poster={slide.poster ? withBasePath(slide.poster) : undefined}
+          src={resolveAssetSrc(slide.src)}
+          poster={slide.poster ? resolveAssetSrc(slide.poster) : undefined}
           controls={isActive}
           playsInline
           preload={isActive ? "metadata" : "none"}
@@ -67,8 +67,8 @@ export function ProjectHeroSlideView({
     return (
       <video
         ref={videoRef}
-        src={withBasePath(slide.src)}
-        poster={slide.poster ? withBasePath(slide.poster) : undefined}
+        src={resolveAssetSrc(slide.src)}
+        poster={slide.poster ? resolveAssetSrc(slide.poster) : undefined}
         autoPlay={isActive}
         muted
         loop
@@ -83,7 +83,7 @@ export function ProjectHeroSlideView({
 
   return (
     <Image
-      src={slide.src}
+      src={resolveAssetSrc(slide.src)}
       alt={slide.alt}
       width={1400}
       height={600}
