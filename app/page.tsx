@@ -2,6 +2,7 @@ import { Link } from "@/lib/navigation";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ProfileStatCards } from "@/components/home/ProfileStatCards";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
+import { MarkdownBlocks } from "@/components/ui/MarkdownBlocks";
 import { profile } from "@/content/profile";
 
 export default function Home() {
@@ -26,14 +27,10 @@ export default function Home() {
             <h3 className="text-2xl font-semibold text-primary mb-4">
               &gt; IDENTITY_DATA
             </h3>
-            {profile.bio.map((paragraph) => (
-              <p
-                key={paragraph.slice(0, 20)}
-                className="text-on-surface-variant mb-4 leading-relaxed last:mb-0"
-              >
-                {paragraph}
-              </p>
-            ))}
+            <MarkdownBlocks
+              blocks={profile.bio}
+              blockClassName="mb-4 last:mb-0"
+            />
             <div className="mt-8 flex gap-4 flex-wrap">
               <div className="flex flex-col">
                 <span className="font-mono text-[13px] font-medium tracking-wider text-tertiary mb-1">

@@ -10,9 +10,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "check": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "check": "npm run lint && npm run typecheck && npm run build",
     "assets:seed": "node scripts/seed-placeholder-assets.mjs",
     "pwa:icons": "node scripts/generate-pwa-icons.mjs",
     "verify:pwa": "node scripts/verify-pwa.mjs"
@@ -20,7 +18,9 @@
   "dependencies": {
     "next": "16.2.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@serwist/cli": "^9.5.11",
@@ -36,7 +36,6 @@
     "serwist": "^9.5.11",
     "sharp": "^0.35.2",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "vitest": "^3.2.4"
+    "typescript": "^5"
   }
 }

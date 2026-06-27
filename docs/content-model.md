@@ -50,6 +50,7 @@ public/
 | [projects/categories.md](./projects/categories.md) | 分類篩選與排序 |
 | [projects/assets.md](./projects/assets.md) | 媒體路徑與命名慣例 |
 | [projects/hero-media.md](./projects/hero-media.md) | Hero 輪播、畫廊、影片規則 |
+| [markdown.md](./markdown.md) | Markdown 欄位撰寫與擴充指南 |
 
 ## Profile 欄位摘要
 
@@ -59,7 +60,7 @@ public/
 | `brand` | ✅ | 站點品牌（用於 `<title>` 等） |
 | `tagline` | ✅ | 一句話簡介（meta description） |
 | `headline` / `headlineAccent` | ✅ | Hero 主標題兩段 |
-| `bio` | ✅ | 關於我段落陣列 |
+| `bio` | ✅ | 關於我段落陣列（**GFM Markdown**） |
 | `location` / `status` | ✅ | 首頁 ABOUT_ME 區塊 |
 | `avatar` | ✅ | 頭像路徑（`profileAsset()`） |
 | `stats` | ✅ | 統計卡片（`id`, `label`, `value`, `suffix?`） |
@@ -74,8 +75,8 @@ public/
 |------|------|------|
 | `id` | ✅ | 唯一識別 |
 | `title` / `company` / `period` | ✅ | 職稱、公司、期間 |
-| `description` | — | 段落說明 |
-| `highlights` | — | 條列重點 |
+| `description` | — | 段落說明（**GFM Markdown**） |
+| `highlights` | — | 條列重點（每項支援行內 Markdown） |
 | `tags` | — | 技術標籤（Chip） |
 | `active` | — | 現職樣式（發光節點、glass 卡片） |
 | `emphasis` | — | 時間軸節點強調 |
@@ -92,11 +93,4 @@ public/
 - 部署至 GitHub Pages 等子路徑時，本地資產會經 `resolveAssetSrc()` 加上 `basePath`；外部 URL 不受影響。
 - 現有 `content/` 文案多為展示用模擬資料，對外發布前請替換為真實資訊。
 
-## 相關測試
-
-| 測試檔 | 驗證內容 |
-|--------|----------|
-| `lib/hero.test.ts` | Hero 解析、去重、indicator 規則 |
-| `lib/assets.test.ts` | 資產路徑與 basePath |
-
-修改 Hero 行為或新增專案範例時，建議一併更新測試。
+修改 Hero 行為、Markdown 設定或新增專案範例時，建議執行 `npm run check` 並手動預覽相關頁面。

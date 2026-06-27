@@ -28,13 +28,14 @@ const SORT_ICONS: Record<SortMode, string> = {
 
 const categoryMap: Record<string, string[]> = {
   ALL_SYSTEMS: [],
-  WEBGL: ["WEBGL"],
+  CLI_TOOLS: ["CLI_TOOLS"],
+  DATA_VIZ: ["DATA_VIZ"],
+  GAME_DEV: ["GAME_DEV"],
+  NEURAL_NETS: ["NEURAL_NETS"],
   SEC_OPS: ["SEC_OPS"],
   SYS_ARCH: ["SYS_ARCH"],
-  DATA_VIZ: ["DATA_VIZ"],
-  CLI_TOOLS: ["CLI_TOOLS"],
-  NEURAL_NETS: ["NEURAL_NETS"],
   UI_ENGINEERING: ["UI_ENGINEERING"],
+  WEBGL: ["WEBGL"],
 };
 
 const categoryFilterClass =

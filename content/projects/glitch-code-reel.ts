@@ -32,8 +32,12 @@ export const glitchCodeReel: ProjectItem = {
     ],
   },
   summary: [
-    "一段約 10 秒的 glitch 程式碼 stock footage，以數位雜訊、終端機文字與干擾效果呈現 programming 視覺語彙。",
-    "作為 christ.jie 的影音展示範例，支援專案卡片 hover 預覽、詳情頁 Hero 自動播放與畫廊手動播放。",
+    `一段約 **10 秒**的 glitch 程式碼 stock footage，以數位雜訊、終端機文字與干擾效果呈現 programming 視覺語彙，適用於 cyber-industrial 介面背景與片頭。`,
+    `作為 christ.jie 的影音展示範例，支援站內多種媒體情境：
+
+- 專案卡片 **hover 預覽**（靜音循環）
+- 詳情頁 **Hero 自動播放**
+- 畫廊區塊手動播放完整片段`,
   ],
   gallery: [
     {

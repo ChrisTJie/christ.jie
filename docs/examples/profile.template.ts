@@ -19,8 +19,12 @@ export const profileTemplate: Profile = {
   headlineAccent: "主標題強調段。",
 
   bio: [
-    "第一段自介：經歷年資、設計與工程的交界、你擅長打造的系統類型。",
-    "第二段自介：工作方法、效能或美學原則、以及你希望合作方如何認識你。",
+    "第一段自介：經歷年資、**設計×工程**的交界、你擅長打造的系統類型。",
+    `第二段可含條列與連結：
+
+- 工作方法或美學原則
+- 希望合作方如何認識你
+- [GitHub](https://github.com/your-handle) 或 [Email](mailto:hello@example.com)`,
   ],
 
   location: "城市 / Remote",

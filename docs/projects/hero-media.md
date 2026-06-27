@@ -15,7 +15,7 @@ content/projects/{slug}.ts
 
 ## Hero 解析優先順序
 
-`resolveHeroConfig(project)` 行為（詳見 `lib/hero.test.ts`）：
+`resolveHeroConfig(project)` 行為（詳見 `lib/hero.ts`）：
 
 1. **有 `hero.slides` 且非空** → 使用該陣列（依 `src` 去重）
 2. **否則有 `heroVideo`（已棄用）** → 轉為單一影片 slide

@@ -16,8 +16,12 @@ export const voidRenderer: ProjectItem = {
   role: "Rendering Engineer",
   timeline: "Q1 2024 - Q2 2024",
   summary: [
-    "Void Renderer 是一套輕量級 WebGL 抽象層，專注於百萬級節點的即時渲染。",
-    "透過自訂著色器管線與 WASM 加速，在一般筆電上維持 60fps 以上的流暢體驗。",
+    `**Void Renderer** 是一套輕量級 \`WebGL\` 抽象層，專注於百萬級節點的即時渲染，為瀏覽器內的抽象資料視覺化提供底層引擎。`,
+    `透過自訂 **GLSL** 著色器管線與 **WASM** 加速，在一般筆電上維持 **60fps+** 的流暢體驗。核心能力包括：
+
+- 可組態的 draw call 批次策略
+- 節點密度自適應 LOD
+- 與 \`TypeScript\` 型別安全的 API 邊界`,
   ],
   gallery: [
     {

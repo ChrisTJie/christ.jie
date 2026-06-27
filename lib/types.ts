@@ -3,7 +3,9 @@ export type ExperienceItem = {
   title: string;
   company: string;
   period: string;
+  /** 職涯概述；支援 GFM Markdown */
   description?: string;
+  /** 時間軸重點條列；每項支援行內 Markdown（粗體、連結、code 等） */
   highlights?: string[];
   tags?: string[];
   active?: boolean;
@@ -123,6 +125,7 @@ export type ProjectItem = {
   wide?: boolean;
   role?: string;
   timeline?: string;
+  /** 詳情頁 EXECUTIVE_SUMMARY；每項為一個 Markdown 區塊（支援 GFM） */
   summary: string[];
   gallery: ProjectGalleryItem[];
   thumbnail: string;
@@ -152,6 +155,7 @@ export type Profile = {
   tagline: string;
   headline: string;
   headlineAccent: string;
+  /** 首頁 IDENTITY_DATA；每項為一個 Markdown 區塊（GFM） */
   bio: string[];
   location: string;
   status: string;

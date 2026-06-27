@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { Chip } from "@/components/ui/Chip";
+import { MarkdownContent } from "@/components/ui/MarkdownContent";
+import { markdownBlockKey } from "@/lib/markdown";
 import {
   certifications,
   education,
@@ -68,18 +70,23 @@ export default function ExperiencePage() {
                     </div>
                   </div>
                   {exp.description && (
-                    <p className="text-on-surface-variant mb-6 leading-relaxed">
+                    <MarkdownContent className="mb-6 text-on-surface-variant">
                       {exp.description}
-                    </p>
+                    </MarkdownContent>
                   )}
                   {exp.highlights && (
                     <ul className="text-on-surface-variant space-y-2 mb-6">
-                      {exp.highlights.map((item) => (
-                        <li key={item} className="flex items-start gap-2">
-                          <span className="text-primary-container font-bold mt-0.5">
+                      {exp.highlights.map((item, index) => (
+                        <li
+                          key={markdownBlockKey(index, item)}
+                          className="flex items-start gap-2"
+                        >
+                          <span className="text-primary-container font-bold mt-0.5 shrink-0">
                             &gt;
                           </span>
-                          <span>{item}</span>
+                          <MarkdownContent variant="inline" className="min-w-0">
+                            {item}
+                          </MarkdownContent>
                         </li>
                       ))}
                     </ul>

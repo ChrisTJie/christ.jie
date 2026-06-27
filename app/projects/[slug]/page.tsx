@@ -9,6 +9,7 @@ import {
 } from "@/components/projects/ProjectMedia";
 import { resolveHeroConfig } from "@/lib/hero";
 import { isVideoGalleryItem } from "@/lib/types";
+import { MarkdownBlocks } from "@/components/ui/MarkdownBlocks";
 import { getProjectBySlug, projects } from "@/content/projects";
 
 type Props = {
@@ -69,14 +70,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               <MaterialIcon name="terminal" className="text-[18px]" />
               EXECUTIVE_SUMMARY
             </h2>
-            {project.summary.map((paragraph) => (
-              <p
-                key={paragraph.slice(0, 30)}
-                className="text-lg text-on-surface-variant mb-6 leading-relaxed last:mb-0"
-              >
-                {paragraph}
-              </p>
-            ))}
+            <MarkdownBlocks blocks={project.summary} variant="prose-lg" />
           </div>
           <div className="lg:col-span-4 flex flex-col gap-6">
             {(project.role || project.timeline) && (

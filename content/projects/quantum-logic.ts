@@ -16,8 +16,12 @@ export const quantumLogic: ProjectItem = {
   role: "Systems Architect",
   timeline: "Q2 2023 - Q4 2023",
   summary: [
-    "Quantum Logic 為研究團隊提供即時量子位元狀態監控，整合多種感測器資料流。",
-    "介面採用模組化儀表板設計，支援自訂告警規則與歷史趨勢分析。",
+    `**Quantum Logic** 為研究團隊提供即時量子位元狀態監控，整合多種感測器資料流與 \`MQTT\` 事件匯流，用於實驗性硬體介面儀表板。`,
+    `介面採用模組化儀表板設計，支援：
+
+- 自訂告警規則與閾值觸發
+- 量子態波動與錯誤率的歷史趨勢分析
+- \`Rust\` 後端與 \`React\` 前端的即時雙向同步`,
   ],
   gallery: [
     {

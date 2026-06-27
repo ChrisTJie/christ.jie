@@ -38,8 +38,14 @@ export const projectOnyx: ProjectItem = {
   role: "Lead UI/UX Engineer",
   timeline: "Q3 2023 - Q1 2024",
   summary: [
-    "Project Onyx 旨在填補抽象機器學習演算法與即時視覺分析之間的鴻溝，為高效能資安營運中心打造。",
-    "平台可攝取大量網路日誌，並轉譯為流暢的 3D 節點環境，讓分析師在數秒內定位異常。",
+    `**Project Onyx** 旨在填補抽象機器學習演算法與即時視覺分析之間的鴻溝，為高效能資安營運中心（SOC）打造威脅偵測介面。`,
+    `平台可攝取大量網路日誌，並轉譯為流暢的 **3D 節點環境**，讓分析師在數秒內定位異常。技術重點：
+
+- \`React\` + \`D3.js\` 前端視覺化層
+- Python 後端推論與日誌管線
+- 預測性神經網路驅動的異常標記
+
+可參考 [LIVE_DEMO](https://example.com/onyx) 與 [原始碼庫](https://github.com/christjie)。`,
   ],
   gallery: [
     {

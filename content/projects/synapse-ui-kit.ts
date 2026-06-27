@@ -17,8 +17,12 @@ export const synapseUiKit: ProjectItem = {
   role: "Design Systems Lead",
   timeline: "Q2 2024 - 進行中",
   summary: [
-    "Synapse UI Kit 為內部產品線提供統一的視覺語言與互動模式。",
-    "元件庫支援深色主題、鍵盤導覽與 WCAG 2.1 AA 對比標準。",
+    `**Synapse UI Kit** 為內部產品線提供統一的視覺語言與互動模式，是可擴展的 \`React\` 設計系統與元件庫。`,
+    `元件庫以無障礙與主題化為核心，涵蓋：
+
+- 深色主題與設計令牌（design tokens）
+- 完整鍵盤導覽與焦點管理
+- **WCAG 2.1 AA** 對比標準與 \`Storybook\` 文件站點`,
   ],
   gallery: [
     {

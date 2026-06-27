@@ -19,13 +19,14 @@ export const projects: ProjectItem[] = [
 
 export const projectCategories = [
   "ALL_SYSTEMS",
-  "WEBGL",
+  "CLI_TOOLS",
+  "DATA_VIZ",
+  "GAME_DEV",
+  "NEURAL_NETS",
   "SEC_OPS",
   "SYS_ARCH",
-  "DATA_VIZ",
-  "CLI_TOOLS",
-  "NEURAL_NETS",
   "UI_ENGINEERING",
+  "WEBGL",
 ] as const;
 
 export function getProjectBySlug(slug: string): ProjectItem | undefined {

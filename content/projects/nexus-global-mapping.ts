@@ -40,8 +40,8 @@ export const nexusGlobalMapping: ProjectItem = {
   role: "Lead Architect UI/UX",
   timeline: "Q1 2023 - Q3 2023",
   summary: [
-    "Nexus Global Mapping 是為高效能資安營運中心設計的即時全球資料流視覺化平台。",
-    "透過 WebGL 著色器與 Rust 資料處理管線，在重負載下仍維持 120fps 渲染。介面設計以 cyber-industrial 美學呈現，讓異常一目了然。",
+    `**Nexus Global Mapping** 是為高效能資安營運中心設計的即時全球資料流視覺化平台，可同時渲染數百萬節點而不犧牲互動性。`,
+    `透過 \`WebGL\` 著色器與 **Rust** 資料處理管線，在重負載下仍維持 **120fps** 渲染。介面以 cyber-industrial 美學呈現，讓異常節點與資料流斷點一目了然。`,
   ],
   gallery: [
     {

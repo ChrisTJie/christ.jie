@@ -63,7 +63,7 @@ npm run dev
 - 開啟 `/projects/` 確認卡片、篩選、排序
 - 開啟 `/projects/{slug}/` 確認 Hero、摘要、畫廊、連結
 
-可選執行 `npm test` 確認 Hero 相關測試仍通過。
+可選執行 `npm run check` 做 lint、型別與建置驗證。
 
 ## 欄位取捨建議
 

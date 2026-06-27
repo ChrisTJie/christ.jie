@@ -22,10 +22,10 @@ export const experiencesTemplate: ExperienceItem[] = [
     period: "2022 - 至今",
     active: true,
     description:
-      "現職概述：負責的系統範圍、團隊規模或技術方向。",
+      "現職概述：負責的系統範圍、團隊規模或技術方向。可使用 **粗體** 與 `行內 code`。",
     highlights: [
-      "可量化的成果或里程碑（延遲、吞吐、成本等）。",
-      "第二項重點成就。",
+      "可量化的成果或里程碑（延遲、吞吐、成本等），例如延遲降至 **40ms**。",
+      "第二項重點成就，可含 [外部連結](https://example.com)。",
     ],
     tags: ["REACT", "TYPESCRIPT", "AWS"],
   },

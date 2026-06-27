@@ -14,7 +14,7 @@
 | `tags` | `string[]` | ✅ | wide 卡標籤 | STACK_DEPLOYED | 技術棧標籤 |
 | `deployed` | `string` | ✅ | DEPL 日期 | DEPL 日期 | 建議格式 `YYYY.MM`，用於時間排序 |
 | `thumbnail` | `string` | ✅ | 卡片預覽 | 回退圖 | 無 Hero 時的預設媒體 |
-| `summary` | `string[]` | ✅ | — | EXECUTIVE_SUMMARY | 每段渲染為一個 `<p>` |
+| `summary` | `string[]` | ✅ | — | EXECUTIVE_SUMMARY | 每項為一個 Markdown 區塊（GFM）；見 [markdown.md](../markdown.md) |
 | `gallery` | `ProjectGalleryItem[]` | ✅ | — | VISUAL_ARCHIVE | 至少一項；可為圖或影片 |
 | `featured` | `boolean` | — | FEATURED 角標 | — | 列表卡片右上角 |
 | `wide` | `boolean` | — | 雙欄寬卡、標籤列 | — | `lg:col-span-2` 格線 |
@@ -51,7 +51,7 @@
 |----------|----------|
 | Hero 輪播 | `resolveHeroConfig(project)` |
 | 標題 / 副標 | `title`, `subtitle` |
-| EXECUTIVE_SUMMARY | `summary[]` |
+| EXECUTIVE_SUMMARY | `summary[]`（Markdown） |
 | TIMELINE & ROLE | `role?`, `timeline?` |
 | STACK_DEPLOYED | `tags[]`, `deployed` |
 | EXTERNAL_LINKS | `links?` |
@@ -118,7 +118,7 @@
 |------|----------|
 | `project-onyx` | 多圖 Hero、`links`、`role`/`timeline` |
 | `nexus-global-mapping` | `featured` + `wide`、多圖 Hero |
-| `glitch-code-reel` | 影片 Hero、畫廊影片、`featured` |
+| `glitch-code-reel` | 影片 Hero、畫廊影片、`featured`、Markdown summary |
 | `void-renderer` | 僅 thumbnail（Hero 回退） |
 | `term-env-v4` | 無 `role`/`timeline`/`hero` |
 | `synapse-ui-kit` | `featured`、畫廊僅 2 項 |

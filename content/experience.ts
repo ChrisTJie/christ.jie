@@ -13,10 +13,10 @@ export const experiences: ExperienceItem[] = [
     period: "2021 - 至今",
     active: true,
     description:
-      "主導分散式神經網路基礎架構設計。協調將舊有單體系統遷移至可擴展的微服務生態，資料吞吐量提升 400%。",
+      "主導**分散式神經網路**基礎架構設計。協調將舊有單體系統遷移至可擴展的微服務生態，資料吞吐量提升 **400%**。",
     highlights: [
-      "設計跨區域事件驅動架構，將核心服務延遲降至 40ms 以內。",
-      "建立內部平台工程標準，縮短新服務上線時間 60%。",
+      "設計**跨區域事件驅動架構**，將核心服務延遲降至 **40ms** 以內。",
+      "建立內部**平台工程**標準，縮短新服務上線時間 **60%**。",
     ],
     tags: ["KUBERNETES", "GO", "TENSORFLOW"],
   },
@@ -27,8 +27,8 @@ export const experiences: ExperienceItem[] = [
     period: "2018 - 2021",
     emphasis: true,
     highlights: [
-      "開發核心 API Gateway，每日處理超過 200 萬次請求。",
-      "實作自動化安全協定，威脅向量降低 60%。",
+      "開發核心 **API Gateway**，每日處理超過 **200 萬**次請求。",
+      "實作自動化安全協定，威脅向量降低 **60%**。",
     ],
     tags: ["NODE.JS", "POSTGRESQL", "REDIS"],
   },
@@ -39,7 +39,7 @@ export const experiences: ExperienceItem[] = [
     period: "2016 - 2018",
     muted: true,
     description:
-      "維護舊有資料庫系統，協助開發內部監控儀表板的前端介面。",
+      "維護舊有資料庫系統，協助開發內部監控儀表板的 **Vue.js** 前端介面。",
     tags: ["PYTHON", "VUE.JS"],
   },
 ];
