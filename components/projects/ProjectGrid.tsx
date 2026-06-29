@@ -123,7 +123,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
         {sorted.map((project, index) => (
           <div
             key={project.slug}
-            className={`motion-safe:animate-fade-up ${project.wide ? "lg:col-span-2" : ""}`}
+            className={`motion-safe:animate-fade-up min-w-0 ${project.wide ? "lg:col-span-2" : ""}`}
             style={{ animationDelay: `${Math.min(index, 8) * 50}ms` }}
           >
             <ProjectCard project={project} />
@@ -156,7 +156,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
         if (event.pointerType === "touch") setHovered(false);
       }}
       onPointerCancel={() => setHovered(false)}
-      className="cyber-card group block bg-surface-container-high border border-tertiary/10 rounded overflow-hidden"
+      className="cyber-card group block min-w-0 bg-surface-container-high border border-tertiary/10 rounded overflow-hidden"
     >
       <div
         className={`relative overflow-hidden bg-surface-dim ${isWide ? "h-64 md:h-80" : "h-64 md:h-72"
@@ -181,7 +181,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
             }`}
         >
           <h3
-            className={`font-semibold text-pure-white mb-2 group-hover:text-primary-container transition-colors ${isWide ? "text-2xl md:text-3xl" : "text-2xl"
+            className={`font-semibold text-pure-white mb-2 group-hover:text-primary-container transition-colors break-words ${isWide ? "text-2xl md:text-3xl" : "text-2xl"
               }`}
           >
             {project.title}
