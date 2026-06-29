@@ -1,6 +1,6 @@
 # CHRIST.JIE
 
-Chris T. Jie 的個人作品集網站——以 **Cyber Obsidian** 視覺語言呈現的全端工程與 UI/UX 設計作品。內容由 TypeScript 靜態資料驅動，支援靜態匯出、GitHub Pages 部署與 PWA 離線體驗。
+ChrisT.Jie 的個人作品集網站——以 **Cyber Obsidian** 視覺語言呈現的全端工程與 UI/UX 設計作品。內容由 TypeScript 靜態資料驅動，支援靜態匯出、GitHub Pages 部署與 PWA 離線體驗。
 
 ## 功能概覽
 
@@ -105,4 +105,19 @@ npx serve out
 
 ## 授權
 
-私有專案（`private: true`）。內容與媒體版權屬作者所有。
+本儲存庫採**雙重授權**：
+
+### 原始碼（MIT）
+
+`app/`、`components/`、`lib/`、`scripts/` 等程式碼，以及網站架構、元件與建置設定，以 [MIT License](LICENSE) 授權。你可自由使用、修改與散布，惟需保留版權聲明。
+
+### 個人內容（保留所有權利）
+
+以下內容著作權屬 **ChrisT.Jie**，**未**授權他人複製、修改或散布：
+
+- `content/` 內的個人簡介、經歷、技能、專案文案等履歷資料
+- `public/profile/`、`public/projects/` 內的個人照片與專案媒體
+
+若要引用或重製上述內容，請事先取得作者同意。
+
+`package.json` 的 `private: true` 僅防止誤發佈至 npm，與上述授權無關。

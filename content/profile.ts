@@ -2,7 +2,7 @@ import type { Profile } from "@/lib/types";
 import { profileAsset } from "@/lib/assets";
 
 export const profile: Profile = {
-  name: "Chris T. Jie",
+  name: "ChrisT.Jie",
   brand: "CHRIST.JIE",
   tagline:
     "全端工程師與 UI/UX 設計師，專注於高效能 Web 應用與沉浸式數位體驗，將複雜邏輯轉化為流暢介面。",
