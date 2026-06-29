@@ -46,7 +46,6 @@ npm run dev:pwa
 | `npm run lint` | ESLint 檢查 |
 | `npm run typecheck` | TypeScript 型別檢查 |
 | `npm run check` | lint + typecheck + build 完整驗證 |
-| `npm run assets:seed` | 產生 placeholder 專案媒體 |
 | `npm run verify:pwa` | 驗證 PWA 產物與 basePath |
 
 ## 專案結構

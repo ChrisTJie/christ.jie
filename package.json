@@ -11,7 +11,6 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run build",
-    "assets:seed": "node scripts/seed-placeholder-assets.mjs",
     "pwa:icons": "node scripts/generate-pwa-icons.mjs",
     "verify:pwa": "node scripts/verify-pwa.mjs"
   },
