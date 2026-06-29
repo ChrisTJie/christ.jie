@@ -19,7 +19,7 @@ const navItems: {
   ];
 
 const navLinkBase =
-  "pb-1 transition-all duration-200 motion-safe:hover:drop-shadow-[0_0_6px_rgba(0,245,255,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-container/60 rounded-sm";
+  "shrink-0 whitespace-nowrap px-2 lg:px-3 pb-1 transition-all duration-200 motion-safe:hover:drop-shadow-[0_0_6px_rgba(0,245,255,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-container/60 rounded-sm";
 
 const cvButtonClass =
   "hidden md:inline-flex items-center gap-2 bg-primary-container text-on-primary px-4 py-2 font-mono text-[13px] font-medium uppercase tracking-wider rounded-none transition-all duration-200 ease-out hover:bg-primary hover:shadow-[0_0_20px_rgba(0,245,255,0.25)] motion-safe:active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-container/60";
@@ -104,17 +104,17 @@ export function Nav() {
 
   return (
     <nav className="bg-surface/80 backdrop-blur-xl text-primary fixed top-0 w-full z-50 border-b border-tertiary/20">
-      <div className="flex justify-between items-center px-4 md:px-16 py-4 max-w-[1280px] mx-auto">
+      <div className="flex justify-between items-center gap-x-4 md:gap-x-6 lg:gap-x-10 px-4 md:px-8 lg:px-16 py-4 max-w-[1280px] mx-auto w-full min-w-0 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         <Link
           href="/"
-          className="text-2xl font-bold text-primary tracking-tighter hover:text-primary-container transition-all duration-200 motion-safe:hover:drop-shadow-[0_0_8px_rgba(0,245,255,0.4)]"
+          className="shrink-0 text-2xl font-bold text-primary tracking-tighter hover:text-primary-container transition-all duration-200 motion-safe:hover:drop-shadow-[0_0_8px_rgba(0,245,255,0.4)]"
         >
           {profile.brand}
         </Link>
 
         <div
           ref={navRef}
-          className="hidden md:flex relative gap-4 font-mono text-[13px] font-medium tracking-wider"
+          className="hidden md:flex shrink-0 items-center gap-4 lg:gap-6 relative font-mono text-[13px] font-medium tracking-wider"
         >
           {navItems.map((item) => {
             const active = !item.external && isActive(pathname, item.href);
@@ -147,7 +147,7 @@ export function Nav() {
 
         <a
           href={withBasePath("/cv.pdf")}
-          className={cvButtonClass}
+          className={`${cvButtonClass} shrink-0`}
         >
           <MaterialIcon name="download" filled />
           DOWNLOAD_CV
@@ -155,7 +155,7 @@ export function Nav() {
 
         <button
           type="button"
-          className="mobile-nav-toggle md:hidden relative flex h-11 w-11 items-center justify-center text-primary"
+          className="mobile-nav-toggle md:hidden shrink-0 relative flex h-11 w-11 items-center justify-center text-primary"
           onClick={() => setMenuOpen((open) => !open)}
           aria-label={menuOpen ? "關閉選單" : "開啟選單"}
           aria-expanded={menuOpen}
