@@ -93,7 +93,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 )}
               </div>
             )}
-            <div className="bg-surface-container-low border border-tertiary/10 p-6 flex-grow">
+            <div className="bg-surface-container-low border border-tertiary/10 p-6">
               <h3 className="font-mono text-[12px] font-medium tracking-widest text-tertiary mb-6">
                 STACK_DEPLOYED
               </h3>
