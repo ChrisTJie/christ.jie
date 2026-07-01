@@ -76,7 +76,8 @@ export default async function ProjectDetailPage({ params }: Props) {
             {(project.role || project.timeline) && (
               <div className="bg-surface-container-high border border-tertiary/20 p-6 relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-container/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <h3 className="font-mono text-[12px] font-medium tracking-widest text-on-surface mb-4 opacity-60">
+                <h3 className="font-mono text-[12px] font-medium tracking-widest text-on-surface mb-4 opacity-60 flex items-center gap-2">
+                  <MaterialIcon name="badge" className="text-[18px]" />
                   TIMELINE & ROLE
                 </h3>
                 {project.role && (
@@ -94,7 +95,8 @@ export default async function ProjectDetailPage({ params }: Props) {
               </div>
             )}
             <div className="bg-surface-container-low border border-tertiary/10 p-6">
-              <h3 className="font-mono text-[12px] font-medium tracking-widest text-tertiary mb-6">
+              <h3 className="font-mono text-[12px] font-medium tracking-widest text-tertiary mb-6 flex items-center gap-2">
+                <MaterialIcon name="deployed_code" className="text-[18px]" />
                 STACK_DEPLOYED
               </h3>
               <div className="flex flex-wrap gap-2 mb-4">
@@ -110,7 +112,8 @@ export default async function ProjectDetailPage({ params }: Props) {
             </div>
             {project.links && project.links.length > 0 && (
               <div className="bg-surface-container-low border border-tertiary/10 p-6">
-                <h3 className="font-mono text-[12px] font-medium tracking-widest text-tertiary mb-4">
+                <h3 className="font-mono text-[12px] font-medium tracking-widest text-tertiary mb-4 flex items-center gap-2">
+                  <MaterialIcon name="link" className="text-[18px]" />
                   EXTERNAL_LINKS
                 </h3>
                 <div className="flex flex-col gap-2">
