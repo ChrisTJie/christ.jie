@@ -137,7 +137,7 @@ export function ProjectHeroCarousel({
       )}
 
       {slides[activeIndex]?.label && (
-        <div className="absolute bottom-14 left-3 right-[7.5rem] md:bottom-4 md:left-4 md:right-auto z-20 font-mono text-[10px] md:text-[12px] font-medium tracking-widest text-tertiary pointer-events-none truncate">
+        <div className="absolute bottom-3 left-3 right-[8.5rem] md:bottom-4 md:left-4 md:right-auto z-20 font-mono text-[10px] md:text-[12px] font-medium tracking-widest text-tertiary pointer-events-none truncate">
           {slides[activeIndex].label}
         </div>
       )}

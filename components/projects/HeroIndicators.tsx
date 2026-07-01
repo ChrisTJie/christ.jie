@@ -39,7 +39,7 @@ export function HeroIndicators({
           >
             <span
               aria-hidden="true"
-              className={`block h-2 w-2 transition-colors ${isActive
+              className={`block h-3 w-3 transition-colors duration-300 ${isActive
                 ? "bg-primary-container animate-pulse"
                 : "bg-on-surface-variant hover:bg-primary-container/50"
                 }`}
