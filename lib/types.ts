@@ -113,6 +113,18 @@ export type ProjectHeroVideo = {
   poster?: string;
 };
 
+export type ProjectAwardItem = {
+  /** 獎項標題 */
+  title?: string;
+  /** 說明文字；支援 GFM Markdown */
+  text?: string;
+  /** 獎項圖片（徽章、獎狀等） */
+  image?: {
+    src: string;
+    alt: string;
+  };
+};
+
 export type ProjectItem = {
   slug: string;
   title: string;
@@ -132,6 +144,8 @@ export type ProjectItem = {
   hero?: ProjectHeroConfig;
   /** @deprecated 請改用 `hero.slides` */
   heroVideo?: ProjectHeroVideo;
+  /** 詳情頁 AWARDS；有值且非空才顯示 */
+  awards?: ProjectAwardItem[];
   links?: { label: string; href: string; external?: boolean }[];
 };
 

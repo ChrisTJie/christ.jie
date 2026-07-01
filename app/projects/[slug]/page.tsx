@@ -3,10 +3,9 @@ import { Link } from "@/lib/navigation";
 import { notFound } from "next/navigation";
 import { MaterialIcon } from "@/components/ui/MaterialIcon";
 import { Chip } from "@/components/ui/Chip";
+import { ProjectAwardsPanel } from "@/components/projects/ProjectAwardsPanel";
 import { ProjectHeroCarousel } from "@/components/projects/ProjectHeroCarousel";
-import {
-  ProjectGalleryTile,
-} from "@/components/projects/ProjectMedia";
+import { ProjectGalleryTile } from "@/components/projects/ProjectMedia";
 import { resolveHeroConfig } from "@/lib/hero";
 import { isVideoGalleryItem } from "@/lib/types";
 import { MarkdownBlocks } from "@/components/ui/MarkdownBlocks";
@@ -93,6 +92,9 @@ export default async function ProjectDetailPage({ params }: Props) {
                   </div>
                 )}
               </div>
+            )}
+            {project.awards && project.awards.length > 0 && (
+              <ProjectAwardsPanel awards={project.awards} />
             )}
             <div className="bg-surface-container-low border border-tertiary/10 p-6">
               <h3 className="font-mono text-[12px] font-medium tracking-widest text-tertiary mb-6 flex items-center gap-2">

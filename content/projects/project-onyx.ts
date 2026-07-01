@@ -65,6 +65,20 @@ export const projectOnyx: ProjectItem = {
       wide: true,
     },
   ],
+  awards: [
+    {
+      title: "CYBERSEC_INNOVATION_AWARD",
+      text: "2024 APAC SOC Summit · **Gold Tier**",
+      image: {
+        src: projectAsset(slug, "thumbnail.jpg"),
+        alt: "CyberSec Innovation Award 徽章",
+      },
+    },
+    {
+      title: "BEST_DATA_VIZ",
+      text: "Internal Hackathon Q4 2023 · Runner-up",
+    },
+  ],
   links: [
     { label: "LIVE_DEMO", href: "https://example.com/onyx", external: true },
     { label: "REPO", href: "https://github.com/christjie", external: true },
