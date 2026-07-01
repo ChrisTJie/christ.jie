@@ -19,6 +19,7 @@ components/ui/
 | 欄位 | 型別 | 頁面 | 元件 | variant |
 |------|------|------|------|---------|
 | `ProjectItem.summary` | `string[]` | 專案詳情 `EXECUTIVE_SUMMARY` | `MarkdownBlocks` | `prose-lg` |
+| `ProjectAwardItem.text` | `string` | 專案詳情 `AWARDS` | `MarkdownContent` | `body` |
 | `ExperienceItem.description` | `string` | `/experience/` 時間軸卡片 | `MarkdownContent` | `body` |
 | `ExperienceItem.highlights` | `string[]` | `/experience/` `>` 條列 | `MarkdownContent` | `inline` |
 | `Profile.bio` | `string[]` | 首頁 `IDENTITY_DATA` | `MarkdownBlocks` | `body` |
@@ -30,7 +31,7 @@ components/ui/
 3. 更新本文件與對應欄位文件。
 4. 若需不同字級，使用 `variant`：`body`、`prose-lg` 或 `inline`（條列內行內語法）。
 
-候選欄位：`EducationItem.detail`。
+候選欄位：`EducationItem.detail`、`ProjectItem.description`（列表卡摘要目前為純文字）。
 
 ## 撰寫慣例
 
@@ -68,6 +69,23 @@ summary: [
 }
 ```
 
+### `ProjectAwardItem.text`
+
+- 單一 Markdown 區塊，用於獎項說明（賽事名稱、組別、年份等）。
+- 適合 `**粗體**` 標示獎項等級或主辦單位；避免區塊級標題（`#`），標題請用 `title` 欄位。
+- 與 `title`、`image` 可任意組合；至少提供其中一項即可顯示該獎項卡片。
+
+```ts
+{
+  title: "優勝",
+  text: "**全國大專設計競賽** · 網頁設計組 · 2022",
+  image: {
+    src: projectAsset(slug, "award.png"),
+    alt: "優勝獎牌",
+  },
+}
+```
+
 ### `Profile.bio: string[]`
 
 - 與 `summary` 相同：**陣列每一項 = 一個 Markdown 區塊**。
@@ -98,7 +116,7 @@ bio: [
 | ` ```lang ` | 程式碼區塊（無語法高亮） |
 | 表格、刪除線等 | GFM 擴充 |
 
-不建議在 summary 使用 `# 大標題`（會降級渲染為較小標題，避免破壞頁面層級）；區塊標題已由頁面 `EXECUTIVE_SUMMARY` 提供。
+不建議在 `summary` 或 `awards[].text` 使用 `# 大標題`（會降級渲染為較小標題，避免破壞頁面層級）；區塊標題已由頁面 `EXECUTIVE_SUMMARY` / `AWARDS` 提供。
 
 ## 樣式 variant
 
@@ -123,6 +141,6 @@ bio: [
 
 ## 相關文件
 
-- [projects/fields.md](./projects/fields.md) — `summary` 欄位與 UI 對照
+- [projects/fields.md](./projects/fields.md) — `summary`、`awards` 欄位與 UI 對照
 - [content-model.md](./content-model.md) — 內容模組總覽
 - [examples/full-project.ts](./examples/full-project.ts) — 含 Markdown 範例的專案範本

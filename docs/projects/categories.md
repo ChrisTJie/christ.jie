@@ -7,13 +7,14 @@
 ```ts
 export const projectCategories = [
   "ALL_SYSTEMS",
-  "WEBGL",
+  "CLI_TOOLS",
+  "DATA_VIZ",
+  "GAME_DEV",
+  "NEURAL_NETS",
   "SEC_OPS",
   "SYS_ARCH",
-  "DATA_VIZ",
-  "CLI_TOOLS",
-  "NEURAL_NETS",
   "UI_ENGINEERING",
+  "WEBGL",
 ] as const;
 ```
 
@@ -26,13 +27,14 @@ export const projectCategories = [
 | 篩選按鈕 | 匹配的 `project.category` |
 |----------|---------------------------|
 | `ALL_SYSTEMS` | （不篩選，顯示全部） |
-| `WEBGL` | `WEBGL` |
+| `CLI_TOOLS` | `CLI_TOOLS` |
+| `DATA_VIZ` | `DATA_VIZ` |
+| `GAME_DEV` | `GAME_DEV` |
+| `NEURAL_NETS` | `NEURAL_NETS` |
 | `SEC_OPS` | `SEC_OPS` |
 | `SYS_ARCH` | `SYS_ARCH` |
-| `DATA_VIZ` | `DATA_VIZ` |
-| `CLI_TOOLS` | `CLI_TOOLS` |
-| `NEURAL_NETS` | `NEURAL_NETS` |
 | `UI_ENGINEERING` | `UI_ENGINEERING` |
+| `WEBGL` | `WEBGL` |
 
 新增分類時需同步修改：
 
@@ -62,7 +64,7 @@ export const projectCategories = [
 | 時間正序 | `CHRONOLOGICAL` | `deployed` 字串升序 |
 | 時間倒序 | `CHRONOLOGICAL_DESC` | `deployed` 字串降序 |
 
-預設為 `CURATED`。調整首頁作品集呈現優先順序時，直接重排 `content/projects/index.ts` 中的 `projects` 陣列即可。
+預設為 `CURATED`。`content/projects/index.ts` 中 `projects` 陣列首位目前為 `project-onyx`；調整作品集呈現優先順序時，直接重排該陣列即可。
 
 ### deployed 格式建議
 

@@ -10,7 +10,7 @@
 | `title` | `string` | ✅ | 卡片標題 | H1 | 專案名稱 |
 | `subtitle` | `string` | ✅ | — | 副標 | 詳情頁 H1 下方 |
 | `description` | `string` | ✅ | 卡片摘要 | SEO | `generateMetadata` 的 description |
-| `category` | `string` | ✅ | 分類標籤、篩選 | Hero 區標籤 | 須為合法分類值 |
+| `category` | `string` | ✅ | 分類標籤、篩選 | Hero 區標籤 | 須為合法分類值（見 [categories.md](./categories.md)） |
 | `tags` | `string[]` | ✅ | wide 卡標籤 | STACK_DEPLOYED | 技術棧標籤 |
 | `deployed` | `string` | ✅ | DEPL 日期 | DEPL 日期 | 建議格式 `YYYY.MM`，用於時間排序 |
 | `thumbnail` | `string` | ✅ | 卡片預覽 | 回退圖 | 無 Hero 時的預設媒體 |
@@ -21,6 +21,7 @@
 | `role` | `string` | — | — | TIMELINE & ROLE | 有值才顯示該區塊 |
 | `timeline` | `string` | — | — | TIMELINE & ROLE | 有值才顯示該區塊 |
 | `hero` | `ProjectHeroConfig` | — | 卡片 hover 預覽 | Hero 輪播 | 見 [hero-media.md](./hero-media.md) |
+| `awards` | `ProjectAwardItem[]` | — | — | AWARDS | 有值且非空才顯示；每項可含標題、Markdown 文字、圖片 |
 | `links` | `{ label, href, external? }[]` | — | — | EXTERNAL_LINKS | 有值且非空才顯示 |
 | `heroVideo` | `ProjectHeroVideo` | — | — | — | **已棄用**，請用 `hero.slides` |
 
@@ -47,15 +48,18 @@
 
 ### 詳情頁（`app/projects/[slug]/page.tsx`）
 
-| 區塊標題 | 資料來源 |
-|----------|----------|
-| Hero 輪播 | `resolveHeroConfig(project)` |
-| 標題 / 副標 | `title`, `subtitle` |
-| EXECUTIVE_SUMMARY | `summary[]`（Markdown） |
-| TIMELINE & ROLE | `role?`, `timeline?` |
-| STACK_DEPLOYED | `tags[]`, `deployed` |
-| EXTERNAL_LINKS | `links?` |
-| VISUAL_ARCHIVE | `gallery[]` |
+主內容區為兩欄格線：左欄 `EXECUTIVE_SUMMARY`，右欄為側欄資訊卡。
+
+| 區塊標題 | 資料來源 | 元件 |
+|----------|----------|------|
+| Hero 輪播 | `resolveHeroConfig(project)` | `ProjectHeroCarousel` |
+| 標題 / 副標 | `title`, `subtitle` | — |
+| EXECUTIVE_SUMMARY | `summary[]`（Markdown） | `MarkdownBlocks` |
+| TIMELINE & ROLE | `role?`, `timeline?` | — |
+| AWARDS | `awards?` | `ProjectAwardsPanel` |
+| STACK_DEPLOYED | `tags[]`, `deployed` | `Chip` |
+| EXTERNAL_LINKS | `links?` | — |
+| VISUAL_ARCHIVE | `gallery[]` | `ProjectGalleryTile` |
 
 ### 畫廊格線（`gallery`）
 
@@ -65,6 +69,21 @@
 | `type: "video"` | `aspect-video` |
 | `wide: true` + 圖片 | `md:col-span-2` |
 | `wide: true` + 影片 | `md:col-span-2 lg:col-span-3`（全寬） |
+
+## ProjectAwardItem
+
+由 `components/projects/ProjectAwardsPanel.tsx` 渲染。每項至少提供 `title`、`text`、`image` 其中一項；可組合使用。多項獎項以分隔線區隔。
+
+```ts
+{
+  title?: string;   // 獎項標題
+  text?: string;    // 說明；支援 GFM Markdown
+  image?: {
+    src: string;    // projectAsset(slug, "award-01.png") 或外部 URL
+    alt: string;
+  };
+}
+```
 
 ## ProjectGalleryItem
 
@@ -116,7 +135,7 @@
 
 | slug | 特色欄位 |
 |------|----------|
-| `project-onyx` | 多圖 Hero、`links`、`role`/`timeline` |
+| `project-onyx` | 多圖 Hero、`awards`、`links`、`role`/`timeline` |
 | `nexus-global-mapping` | `featured` + `wide`、多圖 Hero |
 | `glitch-code-reel` | 影片 Hero、畫廊影片、`featured`、Markdown summary |
 | `void-renderer` | 僅 thumbnail（Hero 回退） |
@@ -132,3 +151,4 @@
 | 分類篩選不到 | `category` 值須與篩選對應表一致（見 [categories.md](./categories.md)） |
 | 排序異常 | `deployed` 建議用 `YYYY.MM` 字串以利 `localeCompare` |
 | 畫廊 key 衝突 | `label` 在同一專案內須唯一 |
+| AWARDS 不顯示 | 確認 `awards` 陣列非空，且每項至少含 `title`、`text`、`image` 之一 |

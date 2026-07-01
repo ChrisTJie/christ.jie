@@ -5,18 +5,19 @@
  * 1. 複製為 content/projects/{slug}.ts，將 slug 與匯出名稱改為實際專案名
  * 2. 依下方「public/ 資產清單」建立媒體檔案
  * 3. 在 content/projects/index.ts 匯入並加入 projects 陣列
- * 4. 刪除或調整不需要的選填欄位（featured、wide、links 等）
+ * 4. 刪除或調整不需要的選填欄位（featured、wide、awards、links 等）
  *
  * 此檔僅供參考，不會被應用程式直接匯入。
  *
  * public/ 資產清單（public/projects/{slug}/）：
- *   thumbnail.jpg      — 必填
+ *   thumbnail.jpg      — 建議檔名（列表縮圖；亦可改用 poster.png 等）
  *   hero-01.jpg        — Hero 圖片 slide
  *   hero-02.jpg
  *   poster.jpg         — 影片 poster / 靜態 slide
  *   demo.mp4           — Hero 與畫廊影片
  *   gallery-01.jpg     — 畫廊方圖
  *   gallery-02.jpg     — 畫廊 wide 圖
+ *   award-01.png       — 獎項徽章（選填）
  */
 import type { ProjectItem } from "@/lib/types";
 import { projectAsset } from "@/lib/assets";
@@ -33,7 +34,7 @@ export const myFullProject: ProjectItem = {
     "列表卡摘要與詳情頁 meta description。一至兩句話說明專案價值與技術重點。",
 
   // ── 分類與標籤 ─────────────────────────────────────────────
-  // 合法值：WEBGL | SEC_OPS | SYS_ARCH | DATA_VIZ | CLI_TOOLS | NEURAL_NETS | UI_ENGINEERING
+  // 合法值：CLI_TOOLS | DATA_VIZ | GAME_DEV | NEURAL_NETS | SEC_OPS | SYS_ARCH | UI_ENGINEERING | WEBGL
   category: "UI_ENGINEERING",
   tags: ["REACT", "TYPESCRIPT", "NEXT.JS"],
   deployed: "2025.06",
@@ -119,6 +120,22 @@ export const myFullProject: ProjectItem = {
       alt: "畫廊內可手動播放的示範影片",
       label: "03 // DEMO_CLIP",
       wide: true,
+    },
+  ],
+
+  // ── 獎項（選填，有值且非空才顯示 AWARDS）──────────────────
+  awards: [
+    {
+      title: "BEST_IN_SHOW",
+      text: "2024 Demo Day · **Grand Prize**",
+      image: {
+        src: projectAsset(slug, "award-01.png"),
+        alt: "Best in Show 獎項徽章",
+      },
+    },
+    {
+      title: "HONORABLE_MENTION",
+      text: "Design Excellence Track",
     },
   ],
 

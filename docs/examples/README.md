@@ -21,23 +21,25 @@ cp docs/examples/full-project.ts content/projects/my-project.ts
 編輯檔案：
 
 - 將 `slug`、`myFullProject` 匯出名稱改為實際專案
-- 依需求刪除 `featured`、`wide`、`links`、`hero` 等選填區塊
+- 依需求刪除 `featured`、`wide`、`links`、`hero`、`awards` 等選填區塊
 - 確認 `category` 為合法值（見 [projects/categories.md](../projects/categories.md)）
 
 ### 2. 建立媒體目錄
 
 ```
 public/projects/{slug}/
-├── thumbnail.jpg      # 必填
+├── thumbnail.jpg      # 建議；列表縮圖（`thumbnail` 欄位指向的檔案）
+├── poster.png         # 亦可作為縮圖或影片 poster
 ├── hero-01.jpg        # 選填（Hero）
 ├── hero-02.jpg
 ├── poster.jpg
 ├── demo.mp4
 ├── gallery-01.jpg     # 畫廊
-└── gallery-02.jpg
+├── gallery-02.jpg
+└── award-01.png       # 選填（獎項徽章）
 ```
 
-素材較少時可只保留 `thumbnail.jpg` 與實際使用的畫廊檔案，並從範本中刪除對應的 `hero` slides 與 `gallery` 項目。
+素材較少時可只保留列表縮圖與實際使用的畫廊檔案，並從範本中刪除對應的 `hero` slides 與 `gallery` 項目。
 
 ### 3. 註冊至清單
 
@@ -61,18 +63,19 @@ npm run dev
 ```
 
 - 開啟 `/projects/` 確認卡片、篩選、排序
-- 開啟 `/projects/{slug}/` 確認 Hero、摘要、畫廊、連結
+- 開啟 `/projects/{slug}/` 確認 Hero、摘要、側欄（時程、獎項、連結）、畫廊
 
 可選執行 `npm run check` 做 lint、型別與建置驗證。
 
 ## 欄位取捨建議
 
-| 情境 | 可省略 |
-|------|--------|
-| 快速上架、素材少 | `hero`、`role`、`timeline`、`links`、`featured`、`wide`；畫廊保留一項即可 |
-| 精選大卡、多媒體 | 保留 `featured`、`wide`；依實際刪減 hero slides / gallery 項目 |
-| 影片為主作品 | 參考 `full-project.ts` + `content/projects/glitch-code-reel.ts`；可刪多圖 hero slides |
-| 僅縮圖展示 | 整個 `hero` 區塊 |
+| 情境 | 可省略 | 參考 |
+|------|--------|------|
+| 快速上架、素材少 | `hero`、`role`、`timeline`、`awards`、`links`、`featured`、`wide`；畫廊保留一項即可 | `term-env-v4` |
+| 精選大卡、多媒體 | 保留 `featured`、`wide`；依實際刪減 hero slides / gallery 項目 | `nexus-global-mapping` |
+| 影片為主作品 | 可刪多圖 hero slides，保留影片 slide + poster | `glitch-code-reel` |
+| 獎項展示 | 保留 `awards`（含 `image` 與 Markdown `text`） | `project-onyx` |
+| 僅縮圖展示 | 整個 `hero` 區塊 | `void-renderer` |
 
 ## 型別檢查
 

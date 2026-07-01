@@ -8,12 +8,13 @@ public/
     avatar.jpg
   projects/
     {slug}/
-      thumbnail.jpg    ← 必填（列表卡、Hero 回退）
+      thumbnail.jpg    ← 建議檔名（列表卡、Hero 回退）；實際檔名可自訂，由 `thumbnail` 欄位指向
       hero-01.jpg      ← 選填
       hero-02.jpg
       gallery-01.jpg   ← 選填
       demo.mp4         ← 影片專案
       poster.jpg       ← 影片 poster
+      award-*.png      ← 獎項徽章（選填）
 ```
 
 `slug` 必須與 `ProjectItem.slug` 及 `content/projects/{slug}.ts` 檔名一致。
@@ -46,11 +47,12 @@ profileAsset("avatar.jpg");
 
 | 用途 | 建議檔名 | 說明 |
 |------|----------|------|
-| 列表縮圖 | `thumbnail.jpg` | 所有專案必備 |
+| 列表縮圖 | `thumbnail.jpg`（建議） | `ProjectItem.thumbnail` 必填；檔名可自訂，如 `poster.png` |
 | Hero 輪播 | `hero-01.jpg`, `hero-02.jpg`, … | 兩位數序號 |
 | 畫廊 | `gallery-01.jpg`, `gallery-02.jpg`, … | 與 Hero 分開編號 |
-| 影片示範 | `demo.mp4` | glitch-code-reel 範例 |
-| 影片海報 | `poster.jpg` | 用於 poster 與靜態回退 |
+| 影片示範 | `demo.mp4`、`trailer.mp4` | Hero / 畫廊影片 |
+| 影片海報 | `poster.jpg`、`poster.png`、`trailer.png` | 用於 poster 與靜態回退 |
+| 獎項徽章 | 語意化檔名，如 `awards[].image`；亦可沿用 `award-01.png` 等序號 |
 
 檔名本身不影響行為，但統一命名有助維護。
 
@@ -65,15 +67,16 @@ profileAsset("avatar.jpg");
 ## 新增專案 Checklist
 
 - [ ] 建立 `public/projects/{slug}/`
-- [ ] 放入 `thumbnail.jpg`
+- [ ] 放入列表縮圖並在 `thumbnail` 欄位引用（建議檔名 `thumbnail.jpg`）
 - [ ] 若有 Hero，放入 `hero-*.jpg` 或 `demo.mp4` + `poster.jpg`
 - [ ] 若有畫廊，放入 `gallery-*.jpg` 或影片
+- [ ] 若有獎項，放入獎項圖片並在 `awards[].image` 引用
 - [ ] 在內容檔中以 `projectAsset(slug, "檔名")` 引用
 - [ ] 確認 `npm run dev` 下圖片/影片可載入
 
 ## 現有資產一覽
 
-截至文件建立時，`public/projects/` 下已有完整媒體的專案：
+截至文件更新時，`public/projects/` 下已有完整媒體的專案：
 
 - `project-onyx` — thumbnail、hero×3、gallery×3
 - `nexus-global-mapping` — thumbnail、hero×3、gallery×3

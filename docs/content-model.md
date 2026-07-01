@@ -14,7 +14,7 @@ content/
     {slug}.ts         ← 單一專案資料
 public/
   profile/            ← 個人頭像等
-  projects/{slug}/    ← 專案縮圖、Hero、畫廊媒體
+  projects/{slug}/    ← 專案縮圖、Hero、畫廊、獎項圖等媒體
 ```
 
 頁面元件 **不硬編碼文案**，只消費上述資料。新增或修改內容時，通常只需改 `content/` 與對應的 `public/` 資產，不必動 UI 元件。
@@ -32,7 +32,7 @@ public/
 
 ## 快速開始：新增專案
 
-1. 在 `public/projects/{slug}/` 放置媒體（至少 `thumbnail.jpg`）。
+1. 在 `public/projects/{slug}/` 放置媒體（至少一張列表縮圖，並在 `thumbnail` 欄位以 `projectAsset()` 引用）。
 2. 新增 `content/projects/{slug}.ts`，匯出符合 `ProjectItem` 的物件。
 3. 在 `content/projects/index.ts` 的 `projects` 陣列中匯入並加入（順序即 **CURATED** 排序）。
 4. 執行 `npm run dev`，確認列表頁與詳情頁渲染正常。
@@ -86,11 +86,26 @@ public/
 
 詳見 `lib/types.ts`。`SkillItem.level` 為 0–100 進度條數值；`highlight` 為強調樣式。
 
+## ProjectItem 欄位摘要
+
+必填欄位：`slug`、`title`、`subtitle`、`description`、`category`、`tags`、`deployed`、`thumbnail`、`summary`、`gallery`。
+
+| 欄位 | 必填 | 說明 |
+|------|------|------|
+| `summary` | ✅ | 詳情頁 `EXECUTIVE_SUMMARY`；陣列每項為一個 **GFM Markdown** 區塊 |
+| `featured` / `wide` | — | 列表卡角標與雙欄寬卡 |
+| `role` / `timeline` | — | 詳情頁側欄 `TIMELINE & ROLE`；有值才顯示 |
+| `hero` | — | Hero 輪播與列表 hover 預覽；省略時回退 `thumbnail` |
+| `awards` | — | 詳情頁側欄 `AWARDS`（`ProjectAwardsPanel`）；有值且非空才顯示 |
+| `links` | — | 詳情頁 `EXTERNAL_LINKS`；有值且非空才顯示 |
+
+完整欄位與 UI 對照見 [projects/fields.md](./projects/fields.md)。
+
 ## 注意事項
 
 - **`category` 目前為 `string`**，合法值應與 `projectCategories` 一致（見 [categories.md](./projects/categories.md)）。
 - **`heroVideo` 已棄用**，請改用 `hero.slides`。
 - 部署至 GitHub Pages 等子路徑時，本地資產會經 `resolveAssetSrc()` 加上 `basePath`；外部 URL 不受影響。
-- 現有 `content/` 文案多為展示用模擬資料，對外發布前請替換為真實資訊。
+- 現有 `content/` 中部分專案為展示用模擬資料；真實作品與 placeholder 專案可並存，對外發布前請確認各欄位內容。
 
 修改 Hero 行為、Markdown 設定或新增專案範例時，建議執行 `npm run check` 並手動預覽相關頁面。
