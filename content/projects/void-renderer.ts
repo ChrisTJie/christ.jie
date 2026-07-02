@@ -28,17 +28,25 @@ export const voidRenderer: ProjectItem = {
       src: projectAsset(slug, "gallery-01.jpg"),
       alt: "3D 幾何渲染",
       label: "01 // WIREFRAME",
+      layout: "portrait",
     },
     {
       src: projectAsset(slug, "gallery-02.jpg"),
       alt: "效能儀表板",
       label: "02 // PERF_METRICS",
+      layout: "square",
     },
     {
       src: projectAsset(slug, "gallery-03.jpg"),
       alt: "程式碼編輯器",
       label: "03 // SHADER_DEV",
-      wide: true,
+      layout: "landscape",
+    },
+    {
+      src: projectAsset(slug, "thumbnail.jpg"),
+      alt: "渲染管線總覽",
+      label: "04 // PIPELINE_VIEW",
+      layout: "wide",
     },
   ],
 };

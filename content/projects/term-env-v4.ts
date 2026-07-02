@@ -26,17 +26,25 @@ export const termEnvV4: ProjectItem = {
       src: projectAsset(slug, "gallery-01.jpg"),
       alt: "程式碼編輯",
       label: "01 // CODE_EDIT",
+      layout: "portrait",
     },
     {
       src: projectAsset(slug, "gallery-02.jpg"),
       alt: "終端機畫面",
       label: "02 // TERM_UI",
+      layout: "square",
     },
     {
       src: projectAsset(slug, "gallery-03.jpg"),
       alt: "設定檔",
       label: "03 // CONFIG",
-      wide: true,
+      layout: "landscape",
+    },
+    {
+      src: projectAsset(slug, "thumbnail.jpg"),
+      alt: "工作區總覽",
+      label: "04 // WORKSPACE_VIEW",
+      layout: "wide",
     },
   ],
 };

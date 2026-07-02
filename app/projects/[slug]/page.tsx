@@ -6,6 +6,7 @@ import { Chip } from "@/components/ui/Chip";
 import { ProjectAwardsPanel } from "@/components/projects/ProjectAwardsPanel";
 import { ProjectHeroCarousel } from "@/components/projects/ProjectHeroCarousel";
 import { ProjectGalleryTile } from "@/components/projects/ProjectMedia";
+import { getGalleryTileClasses } from "@/lib/gallery";
 import { resolveHeroConfig } from "@/lib/hero";
 import { isVideoGalleryItem } from "@/lib/types";
 import { MarkdownBlocks } from "@/components/ui/MarkdownBlocks";
@@ -148,16 +149,11 @@ export default async function ProjectDetailPage({ params }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {project.gallery.map((item) => {
               const isVideo = isVideoGalleryItem(item);
+              const { aspect, col } = getGalleryTileClasses(item);
               return (
                 <div
                   key={item.label}
-                  className={`group relative bg-surface-container-high overflow-hidden border border-transparent hover:border-primary-container/50 transition-colors ${isVideo ? "aspect-video" : "aspect-square"
-                    } ${item.wide
-                      ? isVideo
-                        ? "md:col-span-2 lg:col-span-3"
-                        : "md:col-span-2 lg:col-span-1"
-                      : ""
-                    }`}
+                  className={`group relative bg-surface-container-high overflow-hidden border border-transparent hover:border-primary-container/50 transition-colors ${aspect} ${col}`}
                 >
                   <ProjectGalleryTile item={item} />
                   {!isVideo && (

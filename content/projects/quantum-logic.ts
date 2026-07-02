@@ -28,17 +28,25 @@ export const quantumLogic: ProjectItem = {
       src: projectAsset(slug, "gallery-01.jpg"),
       alt: "電路板特寫",
       label: "01 // CIRCUIT_MAP",
+      layout: "portrait",
     },
     {
       src: projectAsset(slug, "gallery-02.jpg"),
       alt: "資料視覺化",
       label: "02 // STATE_VIZ",
+      layout: "square",
     },
     {
       src: projectAsset(slug, "gallery-03.jpg"),
       alt: "實驗室環境",
       label: "03 // LAB_ENV",
-      wide: true,
+      layout: "landscape",
+    },
+    {
+      src: projectAsset(slug, "thumbnail.jpg"),
+      alt: "量子監控總覽",
+      label: "04 // DASHBOARD_VIEW",
+      layout: "wide",
     },
   ],
 };

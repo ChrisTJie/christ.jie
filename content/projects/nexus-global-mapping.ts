@@ -48,17 +48,25 @@ export const nexusGlobalMapping: ProjectItem = {
       src: projectAsset(slug, "gallery-01.jpg"),
       alt: "終端機視圖",
       label: "01 // TERMINAL_VIEW",
+      layout: "portrait",
     },
     {
       src: projectAsset(slug, "gallery-02.jpg"),
       alt: "地理節點",
       label: "02 // GEO_NODES",
+      layout: "square",
     },
     {
       src: projectAsset(slug, "gallery-03.jpg"),
       alt: "硬體同步",
       label: "03 // HARDWARE_SYNC",
-      wide: true,
+      layout: "landscape",
+    },
+    {
+      src: projectAsset(slug, "hero-01.jpg"),
+      alt: "全球資料流地圖",
+      label: "04 // GLOBAL_MESH",
+      layout: "wide",
     },
   ],
 };

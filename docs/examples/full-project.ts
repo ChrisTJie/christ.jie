@@ -15,8 +15,10 @@
  *   hero-02.jpg
  *   poster.jpg         — 影片 poster / 靜態 slide
  *   demo.mp4           — Hero 與畫廊影片
- *   gallery-01.jpg     — 畫廊方圖
- *   gallery-02.jpg     — 畫廊 wide 圖
+ *   gallery-01.jpg     — 畫廊直圖
+ *   gallery-02.jpg     — 畫廊方圖
+ *   gallery-03.jpg     — 畫廊橫圖
+ *   gallery-04.jpg     — 畫廊寬圖
  *   award-01.png       — 獎項徽章（選填）
  */
 import type { ProjectItem } from "@/lib/types";
@@ -104,22 +106,35 @@ export const myFullProject: ProjectItem = {
   gallery: [
     {
       src: projectAsset(slug, "gallery-01.jpg"),
-      alt: "標準方圖畫廊項目",
+      alt: "直式畫廊項目",
       label: "01 // MAIN_SCREEN",
+      layout: "portrait",
     },
     {
       src: projectAsset(slug, "gallery-02.jpg"),
-      alt: "跨欄寬圖（md 起佔兩欄）",
-      label: "02 // WIDE_LAYOUT",
-      wide: true,
+      alt: "方圖畫廊項目",
+      label: "02 // SQUARE_VIEW",
+      layout: "square",
+    },
+    {
+      src: projectAsset(slug, "gallery-03.jpg"),
+      alt: "橫式畫廊項目",
+      label: "03 // LANDSCAPE_VIEW",
+      layout: "landscape",
+    },
+    {
+      src: projectAsset(slug, "gallery-04.jpg"),
+      alt: "跨欄寬圖",
+      label: "04 // WIDE_LAYOUT",
+      layout: "wide",
     },
     {
       type: "video",
       src: projectAsset(slug, "demo.mp4"),
       poster: projectAsset(slug, "poster.jpg"),
       alt: "畫廊內可手動播放的示範影片",
-      label: "03 // DEMO_CLIP",
-      wide: true,
+      label: "05 // DEMO_CLIP",
+      layout: "wide",
     },
   ],
 

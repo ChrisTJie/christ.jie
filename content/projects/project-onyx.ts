@@ -52,17 +52,25 @@ export const projectOnyx: ProjectItem = {
       src: projectAsset(slug, "gallery-01.jpg"),
       alt: "終端機介面",
       label: "01 // TERMINAL_VIEW",
+      layout: "portrait",
     },
     {
       src: projectAsset(slug, "gallery-02.jpg"),
       alt: "全球節點地圖",
       label: "02 // GEO_NODES",
+      layout: "square",
     },
     {
       src: projectAsset(slug, "gallery-03.jpg"),
       alt: "伺服器機房",
       label: "03 // HARDWARE_SYNC",
-      wide: true,
+      layout: "landscape",
+    },
+    {
+      src: projectAsset(slug, "hero-01.jpg"),
+      alt: "威脅偵測總覽",
+      label: "04 // COMMAND_VIEW",
+      layout: "wide",
     },
   ],
   awards: [

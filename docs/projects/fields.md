@@ -63,12 +63,16 @@
 
 ### 畫廊格線（`gallery`）
 
-| 條件 | 版面 |
-|------|------|
-| 預設圖片 | `aspect-square` |
-| `type: "video"` | `aspect-video` |
-| `wide: true` + 圖片 | `md:col-span-2` |
-| `wide: true` + 影片 | `md:col-span-2 lg:col-span-3`（全寬） |
+| `layout` | 說明 | 比例 | 格線 |
+|----------|------|------|------|
+| `portrait`（直，預設圖片） | 直式 | `aspect-[3/4]` | 1 欄 |
+| `landscape`（橫） | 橫式 | `aspect-video` | 1 欄 |
+| `square`（方） | 方圖 | `aspect-square` | 1 欄 |
+| `wide`（寬） | 跨欄寬圖 | `aspect-video` | `md:col-span-2 lg:col-span-2` |
+| 影片（預設） | 同 `landscape` | `aspect-video` | 1 欄 |
+| 影片 + `layout: "wide"` | 全寬影片 | `aspect-video` | `md:col-span-2 lg:col-span-3` |
+
+`wide: true` 仍相容，等同 `layout: "wide"`。
 
 ## ProjectAwardItem
 
@@ -94,7 +98,8 @@
   src: string;      // projectAsset(slug, "gallery-01.jpg")
   alt: string;      // 無障礙替代文字
   label: string;    // 畫廊左下角標籤，亦作 React key
-  wide?: boolean;
+  layout?: "portrait" | "landscape" | "square" | "wide";  // 直 / 橫 / 方 / 寬
+  wide?: boolean;   // @deprecated 請改用 layout: "wide"
 }
 ```
 
@@ -107,7 +112,8 @@
   poster?: string;
   alt: string;
   label: string;
-  wide?: boolean;
+  layout?: "portrait" | "landscape" | "square" | "wide";
+  wide?: boolean;   // @deprecated 請改用 layout: "wide"
 }
 ```
 

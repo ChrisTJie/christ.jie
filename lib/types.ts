@@ -37,12 +37,16 @@ export type SkillItem = {
   highlight?: boolean;
 };
 
+export type ProjectGalleryLayout = "portrait" | "landscape" | "square" | "wide";
+
 export type ProjectGalleryImageItem = {
   type?: "image";
   src: string;
   alt: string;
   label: string;
-  /** 畫廊格線跨欄（資料驅動，不依賴陣列索引） */
+  /** 畫廊版型：直（3:4）、橫（16:9）、方（1:1）、寬（跨兩欄 + 16:9） */
+  layout?: ProjectGalleryLayout;
+  /** @deprecated 請改用 `layout: "wide"` */
   wide?: boolean;
 };
 
@@ -52,6 +56,8 @@ export type ProjectGalleryVideoItem = {
   poster?: string;
   alt: string;
   label: string;
+  layout?: ProjectGalleryLayout;
+  /** @deprecated 請改用 `layout: "wide"` */
   wide?: boolean;
 };
 

@@ -29,11 +29,19 @@ export const synapseUiKit: ProjectItem = {
       src: projectAsset(slug, "gallery-01.jpg"),
       alt: "元件預覽",
       label: "01 // COMPONENTS",
+      layout: "portrait",
     },
     {
       src: projectAsset(slug, "gallery-02.jpg"),
       alt: "文件站點",
       label: "02 // DOCS",
+      layout: "square",
+    },
+    {
+      src: projectAsset(slug, "thumbnail.jpg"),
+      alt: "設計系統總覽",
+      label: "03 // SYSTEM_VIEW",
+      layout: "wide",
     },
   ],
 };

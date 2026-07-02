@@ -46,7 +46,7 @@ export const glitchCodeReel: ProjectItem = {
       poster: projectAsset(slug, "poster.jpg"),
       alt: "Glitch 程式碼 stock footage 完整片段",
       label: "01 // GLITCH_REEL",
-      wide: true,
+      layout: "wide",
     },
   ],
 };
