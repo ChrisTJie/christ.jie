@@ -1,4 +1,5 @@
 import type { ProjectItem } from "@/lib/types";
+import { somnus } from "@/content/projects/somnus";
 import { glitchCodeReel } from "@/content/projects/glitch-code-reel";
 import { nexusGlobalMapping } from "@/content/projects/nexus-global-mapping";
 import { projectOnyx } from "@/content/projects/project-onyx";
@@ -8,6 +9,7 @@ import { termEnvV4 } from "@/content/projects/term-env-v4";
 import { voidRenderer } from "@/content/projects/void-renderer";
 
 export const projects: ProjectItem[] = [
+  somnus,
   projectOnyx,
   voidRenderer,
   quantumLogic,
